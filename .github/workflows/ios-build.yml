@@ -12,11 +12,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Toolchain info
+      - name: Select Xcode
+        id: xcode
         run: |
           set -x
-          sw_vers
+          ls -d /Applications/Xcode*.app || true
+          for candidate in 26.0 26.1 26.2 26.3 26.4 26.5; do
+            if [ -d "/Applications/Xcode_${candidate}.app" ]; then
+              echo "SELECTED=$candidate" >> "$GITHUB_OUTPUT"
+              sudo xcode-select -s "/Applications/Xcode_${candidate}.app"
+              break
+            fi
+          done
           xcodebuild -version
+          xcrun swift --version
           xcrun --sdk iphoneos --show-sdk-version || true
 
       - name: Build (unsigned)
@@ -25,6 +34,7 @@ jobs:
           set -o pipefail
           set +e
           xcodebuild \
+            -quiet \
             -project "Agents Anywhere/Agents Anywhere.xcodeproj" \
             -scheme "Agents Anywhere" \
             -configuration Release \
@@ -37,14 +47,13 @@ jobs:
             DEVELOPMENT_TEAM="" \
             IPHONEOS_DEPLOYMENT_TARGET=17.0 \
             SWIFT_OPTIMIZATION_LEVEL="-O" \
-            SWIFT_COMPILATION_MODE="wholemodule" \
             DEBUG_INFORMATION_FORMAT="dwarf" \
             ENABLE_DEBUG_DYLIB="NO" \
             ENABLE_PREVIEWS="NO" \
             build 2>&1 | tee "$RUNNER_TEMP/build.log"
           STATUS=${PIPESTATUS[0]}
           echo "=== xcodebuild exit: $STATUS ==="
-          grep -E "error:|BUILD SUCCEEDED|BUILD FAILED|Compiling with effective" "$RUNNER_TEMP/build.log" | sort -u | head -120 || true
+          grep -aE "error:|BUILD SUCCEEDED|BUILD FAILED|Compiling with effective|Stack dump|SwiftCompile failed" "$RUNNER_TEMP/build.log" | cut -c1-400 | sort -u | head -40 || true
           exit $STATUS
 
       - name: Package IPA
