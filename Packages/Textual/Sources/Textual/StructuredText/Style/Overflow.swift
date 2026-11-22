@@ -66,9 +66,7 @@ public struct Overflow<Content: View>: View {
           Color.clear
             .frame(minHeight: contentHeight)
           content(.scroll(containerWidth: containerWidth))
-            .onGeometryChange(for: CGFloat.self, of: \.size.height) {
-              contentHeight = $0
-            }
+            .background(SizeObserver { contentHeight = $0.height })
             // Make text selection local in scrollable regions
             .modifier(TextSelectionInteraction())
             .transformPreference(Text.LayoutKey.self) { value in
@@ -76,9 +74,7 @@ public struct Overflow<Content: View>: View {
             }
         }
       }
-      .onScrollGeometryChange(for: CGFloat.self, of: \.containerSize.width) {
-        containerWidth = $1
-      }
+      .background(SizeObserver { containerWidth = $0.width })
       // Propagate gesture exclusion area
       .background(
         GeometryReader { geometry in

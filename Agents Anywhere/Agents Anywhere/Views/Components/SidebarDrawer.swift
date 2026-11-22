@@ -12,7 +12,7 @@ struct SidebarDrawerConfiguration: Sendable {
     let sidebarClosedScale: CGFloat
     let sidebarOverlayOpacity: CGFloat
     let contentOverlayOpacity: CGFloat
-    let sidebarHeaderEdgeEffectStyle: ScrollEdgeEffectStyle
+    let sidebarHeaderEdgeEffectStyle: AAScrollEdgeEffectStyle
 
     init(
         revealFraction: CGFloat = 0.75,
@@ -20,7 +20,7 @@ struct SidebarDrawerConfiguration: Sendable {
         sidebarClosedScale: CGFloat = 0.95,
         sidebarOverlayOpacity: CGFloat = 0.5,
         contentOverlayOpacity: CGFloat = 0.14,
-        sidebarHeaderEdgeEffectStyle: ScrollEdgeEffectStyle = .soft
+        sidebarHeaderEdgeEffectStyle: AAScrollEdgeEffectStyle = .soft
     ) {
         self.revealFraction = revealFraction
         self.edgeActivationWidth = edgeActivationWidth
@@ -517,7 +517,7 @@ private struct SidebarDrawerNativeSplitView<
     private let sidebarHeader: (EdgeInsets) -> SidebarHeader
     private let sidebarContent: (EdgeInsets) -> SidebarContent
     private let mainContent: (EdgeInsets) -> MainContent
-    private let sidebarHeaderEdgeEffectStyle: ScrollEdgeEffectStyle
+    private let sidebarHeaderEdgeEffectStyle: AAScrollEdgeEffectStyle
 
     @State private var columnVisibility: NavigationSplitViewVisibility
     @State private var isAnimating = false
@@ -526,7 +526,7 @@ private struct SidebarDrawerNativeSplitView<
 
     init(
         isOpen: Binding<Bool>,
-        sidebarHeaderEdgeEffectStyle: ScrollEdgeEffectStyle,
+        sidebarHeaderEdgeEffectStyle: AAScrollEdgeEffectStyle,
         sidebarHeader: @escaping (EdgeInsets) -> SidebarHeader,
         sidebarContent: @escaping (EdgeInsets) -> SidebarContent,
         mainContent: @escaping (EdgeInsets) -> MainContent
@@ -604,14 +604,14 @@ private struct SidebarDrawerNativeSplitView<
 }
 
 private struct SidebarDrawerNativeSidebar<Header: View, Content: View>: View {
-    let edgeEffectStyle: ScrollEdgeEffectStyle
+    let edgeEffectStyle: AAScrollEdgeEffectStyle
     let header: Header
     let content: Content
 
     var body: some View {
         content
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .scrollEdgeEffectStyle(edgeEffectStyle, for: .top)
+            .aaScrollEdgeEffectStyle(edgeEffectStyle, for: .top)
             .safeAreaBar(edge: .top, spacing: 0) {
                 SidebarDrawerHeaderBar(
                     safeAreaInsets: EdgeInsets(),
@@ -638,14 +638,14 @@ private struct SidebarDrawerHeaderBar<Header: View>: View {
 private struct SidebarDrawerSidebar<Header: View, Content: View>: View {
     let width: CGFloat
     let safeAreaInsets: EdgeInsets
-    let edgeEffectStyle: ScrollEdgeEffectStyle
+    let edgeEffectStyle: AAScrollEdgeEffectStyle
     let header: Header
     let content: Content
 
     var body: some View {
         content
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .scrollEdgeEffectStyle(edgeEffectStyle, for: .top)
+            .aaScrollEdgeEffectStyle(edgeEffectStyle, for: .top)
             .safeAreaBar(edge: .top, spacing: 0) {
                 SidebarDrawerHeaderBar(
                     safeAreaInsets: safeAreaInsets,

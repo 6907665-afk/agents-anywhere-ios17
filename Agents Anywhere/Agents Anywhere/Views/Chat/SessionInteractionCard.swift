@@ -55,7 +55,7 @@ struct SessionInteractionCard: View {
             .padding(.horizontal, 12).padding(.vertical, 10)
             .frame(height: height ?? metrics.compactHeight)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .glassEffect(.regular, in: .rect(cornerRadius: 24))
+            .aaGlass(in: .rect(cornerRadius: 24))
         }
         .sheet(item: $destination) { target in
             switch target {
@@ -117,7 +117,7 @@ struct SessionInteractionActions: View {
                                 if layout.more.contains(where: item.isSending) { ProgressView().controlSize(.small) }
                             }
                     }
-                    .font(.subheadline).buttonStyle(.glass).buttonBorderShape(.capsule).controlSize(.large)
+                    .font(.subheadline).aaGlassButtonStyle().buttonBorderShape(.capsule).controlSize(.large)
                     .disabled(chat.isWorking || !item.canRespond(fresh: chat.session.runtime.isFresh, at: now))
                     .fixedSize()
                 }

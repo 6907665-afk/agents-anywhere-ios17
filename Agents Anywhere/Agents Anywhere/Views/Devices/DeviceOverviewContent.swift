@@ -315,7 +315,7 @@ struct DeviceSessionSelectionDock: View {
             AppGlassButton(restores ? String(localized: "dashboard.device.unarchiveSelected") : String(localized: "dashboard.device.archiveSelected"), systemImage: restores ? "tray.and.arrow.up" : "archivebox",
                 style: .prominent, isLoading: isWorking, disabled: disabled || count == 0, maxWidth: nil, action: onSubmit)
         }
-        .padding(14).glassEffect(.regular, in: .rect(cornerRadius: 24))
+        .padding(14).aaGlass(in: .rect(cornerRadius: 24))
         .padding(.horizontal, 24).padding(.bottom, 12).frame(maxWidth: 760).frame(maxWidth: .infinity)
     }
 }

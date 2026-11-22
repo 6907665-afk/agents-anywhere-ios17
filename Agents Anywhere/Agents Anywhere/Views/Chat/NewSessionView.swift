@@ -44,7 +44,7 @@ struct NewSessionView: View, Equatable {
                         .background { ChatPageScrollEdge() }
                 }
                 .scrollDismissesKeyboard(.interactively)
-                .scrollEdgeEffectStyle(.soft, for: .top)
+                .aaScrollEdgeEffectStyle(.soft, for: .top)
                 .refreshable { await refresh() }
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {

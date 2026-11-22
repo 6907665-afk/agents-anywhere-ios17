@@ -66,7 +66,7 @@ struct WorkspaceFilesSheet: View {
                         Button(String(localized: "取消")) { self.transfer = nil }.font(.footnote)
                     }
                     .padding(16)
-                    .glassEffect(.regular, in: .capsule)
+                    .aaGlass(in: .capsule)
                     .padding(.horizontal, 16).padding(.bottom, 8)
                 }
             }
@@ -213,7 +213,7 @@ private struct WorkspaceDirectoryView: View {
             }
         }
         .scrollContentBackground(.hidden)
-        .scrollEdgeEffectStyle(.soft, for: .all)
+        .aaScrollEdgeEffectStyle(.soft, for: .all)
         .toolbarBackground(.hidden, for: .navigationBar)
         .safeAreaInset(edge: .top, spacing: 0) {
             VStack(alignment: .leading, spacing: 8) {
@@ -227,7 +227,7 @@ private struct WorkspaceDirectoryView: View {
                             .textFieldStyle(.plain)
                             .font(.system(.footnote, design: .monospaced)).textInputAutocapitalization(.never).autocorrectionDisabled()
                             .padding(.horizontal, 14).frame(minHeight: 44)
-                            .glassEffect(.regular, in: .capsule)
+                            .aaGlass(in: .capsule)
                             .onSubmit { navigate(address ?? currentDirectoryPath) }
                         Button(String(localized: "打开目录"), appSymbol: "arrow.right") { navigate(address ?? currentDirectoryPath) }
                             .labelStyle(.iconOnly).frame(width: 44, height: 44).disabled(!canRead)

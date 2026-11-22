@@ -20,12 +20,11 @@ extension StructuredText {
     }
 
     var body: some View {
-      Group(subviews: content) { children in
-        BlockVStackLayout(textAlignment: textAlignment) {
-          ForEach(children) {
-            BlockLayoutView($0)
-          }
-        }
+      // iOS 17 compatibility: `Group(subviews:)` requires iOS 18. A `Layout`
+      // container already flattens `content` into individual subviews, so block
+      // spacing degrades to the container's resolved view spacing.
+      BlockVStackLayout(textAlignment: textAlignment) {
+        content
       }
     }
   }

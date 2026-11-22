@@ -31,7 +31,7 @@ struct ChatComposer: View {
     @Namespace private var glass
 
     var body: some View {
-        GlassEffectContainer(spacing: 12) {
+        AAGlassEffectContainer(spacing: 12) {
             VStack(spacing: 0) {
                 if !draft.attachments.isEmpty { attachmentTray }
                 ComposerLayout(expanded: draft.isExpanded, maximumEditorHeight: maximumEditorHeight, controls: controls) {
@@ -93,8 +93,8 @@ struct ChatComposer: View {
                     }
                 }
             }
-            .glassEffect(.regular.interactive(), in: .rect(cornerRadius: draft.isExpanded ? controls.expandedCornerRadius : controls.collapsedCornerRadius))
-            .glassEffectID("composer", in: glass)
+            .aaGlass(interactive: true, in: .rect(cornerRadius: draft.isExpanded ? controls.expandedCornerRadius : controls.collapsedCornerRadius))
+            .aaGlassEffectID("composer", in: glass)
         }
         .padding(.horizontal, draft.isExpanded ? ChatControlMetrics.expandedHorizontalInset : ChatControlMetrics.collapsedHorizontalInset)
         .padding(.top, 8)

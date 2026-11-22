@@ -39,7 +39,7 @@ struct ChatErrorToasts: View {
                         .padding(.leading, 16).padding(.trailing, 4).padding(.bottom, 12)
                         .frame(height: height)
                         .containerRelativeFrame(.horizontal)
-                        .glassEffect(.regular, in: .rect(cornerRadius: 24))
+                        .aaGlass(in: .rect(cornerRadius: 24))
                         .id(item.id)
                     }
                 }.scrollTargetLayout()

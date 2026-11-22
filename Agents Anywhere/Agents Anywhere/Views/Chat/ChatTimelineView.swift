@@ -58,7 +58,7 @@ struct ChatTimelineView: View {
             .scrollDismissesKeyboard(.interactively)
             .scrollIndicators(.hidden)
             .scrollBounceBehavior(.always, axes: .vertical)
-            .scrollEdgeEffectStyle(.soft, for: .top)
+            .aaScrollEdgeEffectStyle(.soft, for: .top)
             .defaultScrollAnchor(.top, for: .initialOffset)
             .defaultScrollAnchor(.top, for: .alignment)
             .defaultScrollAnchor(.top, for: .sizeChanges)
@@ -212,7 +212,7 @@ struct ChatTimelineView: View {
                 } label: {
                     Label(String(localized: "到底部"), appSymbol: "arrow.down").font(.caption.weight(.medium)).foregroundStyle(.primary)
                         .padding(.horizontal, 12).frame(height: returnPillHeight)
-                        .glassEffect(.regular.interactive(), in: .capsule)
+                        .aaGlass(interactive: true, in: .capsule)
                         .frame(minHeight: 44).contentShape(Rectangle())
                 }
                 .buttonStyle(.plain).accessibilityIdentifier("chat.timeline.bottom")

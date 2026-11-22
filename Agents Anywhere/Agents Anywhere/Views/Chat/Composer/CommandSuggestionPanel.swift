@@ -42,7 +42,7 @@ struct CommandSuggestionPanel: View {
                 content
             }
             .padding(.bottom, 8)
-            .glassEffect(.regular, in: .rect(cornerRadius: 22))
+            .aaGlass(in: .rect(cornerRadius: 22))
             .padding(.horizontal, draft.isExpanded ? ChatControlMetrics.expandedHorizontalInset : ChatControlMetrics.collapsedHorizontalInset)
             .transition(.opacity)
             .task(id: chat.canUseCommands) { await chat.loadCommands() }

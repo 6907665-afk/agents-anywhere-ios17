@@ -116,7 +116,7 @@ private struct SessionPlanCard: View {
                 }.frame(maxWidth: .infinity, alignment: .leading)
                 if let plan = entry.plan {
                     Button(String(localized: "打开计划")) { onRead(plan) }
-                        .font(.subheadline).buttonStyle(.glass).buttonBorderShape(.capsule).controlSize(.small)
+                        .font(.subheadline).aaGlassButtonStyle().buttonBorderShape(.capsule).controlSize(.small)
                         .frame(minHeight: 44)
                 }
             }
@@ -144,7 +144,7 @@ private struct SessionPlanCard: View {
         }
         .padding(.horizontal, 12).padding(.vertical, 10)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .glassEffect(.regular, in: .rect(cornerRadius: 24))
+        .aaGlass(in: .rect(cornerRadius: 24))
     }
 }
 
@@ -221,7 +221,7 @@ struct SessionPlanReviewPanel: View {
         }
         .padding(.horizontal, 12).padding(.vertical, 10)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .glassEffect(.regular, in: .rect(cornerRadius: 24))
+        .aaGlass(in: .rect(cornerRadius: 24))
         .padding(.horizontal, 12).padding(.vertical, 8)
         .onChange(of: editing) { _, value in feedbackFocused = value }
     }

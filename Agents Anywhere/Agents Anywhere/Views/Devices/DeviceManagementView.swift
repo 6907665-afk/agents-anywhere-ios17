@@ -95,7 +95,7 @@ struct DeviceManagementView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .scrollIndicators(.hidden).scrollEdgeEffectStyle(.soft, for: .all)
+        .scrollIndicators(.hidden).aaScrollEdgeEffectStyle(.soft, for: .all)
         .refreshable { await dashboard.refresh(); await agents.refresh(); await loadDeviceSettings() }
         .modifier(ChatPageToolbar(title: showsToolbarTitle ? connector.name : "",
             subtitle: showsToolbarTitle ? connectionDescription : nil, onMenu: onMenu))

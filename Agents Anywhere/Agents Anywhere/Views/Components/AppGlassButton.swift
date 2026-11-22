@@ -59,12 +59,12 @@ struct AppGlassButton: View {
     var body: some View {
         if style == .prominent {
             button
-                .buttonStyle(.glassProminent)
+                .aaGlassButtonStyle(prominent: true)
                 .tint(AppTheme.primaryControlBackground(colorScheme))
                 .foregroundStyle(AppTheme.primaryControlForeground(colorScheme))
         } else {
             button
-                .buttonStyle(.glass)
+                .aaGlassButtonStyle()
         }
     }
 

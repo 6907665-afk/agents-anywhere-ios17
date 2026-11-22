@@ -24,7 +24,7 @@ extension TextFragment {
     @ObservationIgnored private let content: Content
     @ObservationIgnored let attachments: Set<AnyAttachment>
     @ObservationIgnored let hasLinks: Bool
-    @ObservationIgnored private let cache: NSCache<KeyBox<[AttachmentKey: CGSize]>, Box<Text>>
+    @ObservationIgnored private let cache: NSCache<KeyBox<AttachmentSizesCacheKey>, Box<Text>>
 
     init(_ content: Content, environment: TextEnvironmentValues) {
       let attachmentSizes = content.attachmentSizes(for: .unspecified, in: environment)
@@ -41,7 +41,7 @@ extension TextFragment {
       self.cache = NSCache()
       self.cache.countLimit = 10
 
-      self.cache.setObject(Box(self.text), forKey: KeyBox(attachmentSizes))
+      self.cache.setObject(Box(self.text), forKey: KeyBox(AttachmentSizesCacheKey(sizes: attachmentSizes)))
     }
 
     func sizeChanged(_ size: CGSize, environment: TextEnvironmentValues) {
@@ -50,7 +50,7 @@ extension TextFragment {
       let attachmentSizes = content.attachmentSizes(for: .init(size), in: environment)
       guard attachmentSizes != currentAttachmentSizes else { return }
       currentAttachmentSizes = attachmentSizes
-      let cacheKey = KeyBox(attachmentSizes)
+      let cacheKey = KeyBox(AttachmentSizesCacheKey(sizes: attachmentSizes))
 
       if let text = cache.object(forKey: cacheKey) {
         self.text = text.wrappedValue
@@ -143,4 +143,24 @@ extension AttributedStringProtocol {
 private struct AttachmentKey: Hashable {
   let attachment: AnyAttachment
   let font: Font?
+}
+
+/// iOS 17 compatibility: `CGSize` only conforms to `Hashable` from iOS 18 on, and
+/// `Dictionary` is not `Hashable`, so the cache key hashes the size bit patterns
+/// explicitly while equality keeps using the dictionary's own comparison.
+private struct AttachmentSizesCacheKey: Hashable {
+  let sizes: [AttachmentKey: CGSize]
+
+  static func == (lhs: Self, rhs: Self) -> Bool {
+    lhs.sizes == rhs.sizes
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(sizes.count)
+    for (key, size) in sizes {
+      hasher.combine(key)
+      hasher.combine(size.width.bitPattern)
+      hasher.combine(size.height.bitPattern)
+    }
+  }
 }

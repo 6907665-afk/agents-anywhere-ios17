@@ -125,7 +125,7 @@ struct ChatSidebarView: View {
         }
         .refreshable { await repository?.refresh() }
         .scrollIndicators(.hidden)
-        .scrollEdgeEffectStyle(.soft, for: .bottom)
+        .aaScrollEdgeEffectStyle(.soft, for: .bottom)
         .overlay(alignment: .bottom) {
             if let account {
                 ChatSidebarBottomControls(
@@ -515,7 +515,7 @@ private struct ChatSidebarBottomControls: View {
             } label: {
                 ChatSidebarAvatar(account: account)
             }
-            .buttonStyle(.glass)
+            .aaGlassButtonStyle()
             .buttonBorderShape(.circle)
             .accessibilityLabel(String(localized: "Account"))
         }
