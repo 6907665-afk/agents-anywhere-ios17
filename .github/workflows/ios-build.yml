@@ -37,8 +37,10 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             DEVELOPMENT_TEAM="" \
             IPHONEOS_DEPLOYMENT_TARGET=17.0 \
+            SWIFT_DEFAULT_ACTOR_ISOLATION="nonisolated" \
+            SWIFT_APPROACHABLE_CONCURRENCY="NO" \
+            SWIFT_STRICT_CONCURRENCY="minimal" \
             SWIFT_OPTIMIZATION_LEVEL="-Osize" \
-            SWIFT_COMPILATION_MODE="singlefile" \
             DEBUG_INFORMATION_FORMAT="dwarf" \
             ENABLE_DEBUG_DYLIB="NO" \
             ENABLE_PREVIEWS="NO" \
