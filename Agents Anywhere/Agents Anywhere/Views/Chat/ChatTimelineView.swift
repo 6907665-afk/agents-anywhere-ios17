@@ -288,35 +288,31 @@ struct ChatTimelineView: View {
 /// Keep the latest measurement without publishing View state inside a layout
 /// callback. One main-queue delivery handles a burst; removal invalidates it.
 @MainActor private final class ChatLayoutUpdate<Value> {
-    /// Boxed so the storage holds a class reference instead of a function type;
-    /// this keeps the synthesized destructor trivial for the optimizer.
-    private final class PendingAction {
-        let run: () -> Void
-        init(_ run: @escaping () -> Void) { self.run = run }
-    }
-
-    private var pending: PendingAction?
-    private var scheduled = false
+    /// The pending delivery lives in a `DispatchWorkItem`. Storing the closure in
+    /// a system type keeps the synthesized destructor free of function-typed
+    /// fields, which the current Swift optimizer cannot compile here.
+    private var pendingWork: DispatchWorkItem?
     private var generation = 0
 
     func submit(_ value: Value, apply: @escaping (Value) -> Void) {
-        pending = PendingAction { apply(value) }
-        guard !scheduled else { return }
-        scheduled = true
         let token = generation
-        DispatchQueue.main.async { [weak self] in
-            guard let self, self.generation == token else { return }
-            let update = self.pending
-            self.pending = nil
-            self.scheduled = false
-            update?.run()
+        pendingWork?.cancel()
+        let work = DispatchWorkItem { [weak self] in
+            guard let self else { return }
+            MainActor.assumeIsolated {
+                guard self.generation == token else { return }
+                self.pendingWork = nil
+                apply(value)
+            }
         }
+        pendingWork = work
+        DispatchQueue.main.async(execute: work)
     }
 
     func cancel() {
         generation &+= 1
-        pending = nil
-        scheduled = false
+        pendingWork?.cancel()
+        pendingWork = nil
     }
 }
 
