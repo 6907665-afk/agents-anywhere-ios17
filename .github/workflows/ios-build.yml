@@ -39,6 +39,8 @@ jobs:
             SWIFT_OPTIMIZATION_LEVEL="-Onone" \
             SWIFT_COMPILATION_MODE="wholemodule" \
             DEBUG_INFORMATION_FORMAT="dwarf" \
+            ENABLE_DEBUG_DYLIB="NO" \
+            ENABLE_PREVIEWS="NO" \
             build 2>&1 | tee "$RUNNER_TEMP/build.log"
           STATUS=${PIPESTATUS[0]}
           echo "=== xcodebuild exit: $STATUS ==="
