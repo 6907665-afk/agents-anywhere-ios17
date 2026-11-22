@@ -287,14 +287,20 @@ struct ChatTimelineView: View {
 
 /// Keep the latest measurement without publishing View state inside a layout
 /// callback. One main-queue delivery handles a burst; removal invalidates it.
-@_optimize(none)
 @MainActor private final class ChatLayoutUpdate<Value> {
-    private var pending: (() -> Void)?
+    /// Boxed so the storage holds a class reference instead of a function type;
+    /// this keeps the synthesized destructor trivial for the optimizer.
+    private final class PendingAction {
+        let run: () -> Void
+        init(_ run: @escaping () -> Void) { self.run = run }
+    }
+
+    private var pending: PendingAction?
     private var scheduled = false
     private var generation = 0
 
     func submit(_ value: Value, apply: @escaping (Value) -> Void) {
-        pending = { apply(value) }
+        pending = PendingAction { apply(value) }
         guard !scheduled else { return }
         scheduled = true
         let token = generation
@@ -303,7 +309,7 @@ struct ChatTimelineView: View {
             let update = self.pending
             self.pending = nil
             self.scheduled = false
-            update?()
+            update?.run()
         }
     }
 

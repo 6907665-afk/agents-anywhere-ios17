@@ -37,6 +37,7 @@ jobs:
             DEVELOPMENT_TEAM="" \
             IPHONEOS_DEPLOYMENT_TARGET=17.0 \
             SWIFT_OPTIMIZATION_LEVEL="-O" \
+            OTHER_SWIFT_FLAGS="-Xllvm -disable-sil-perf-optzns" \
             SWIFT_COMPILATION_MODE="wholemodule" \
             DEBUG_INFORMATION_FORMAT="dwarf" \
             ENABLE_DEBUG_DYLIB="NO" \
