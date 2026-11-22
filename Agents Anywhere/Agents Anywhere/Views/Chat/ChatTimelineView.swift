@@ -13,8 +13,8 @@ struct ChatTimelineView: View {
     @State private var position = AAScrollPosition()
     @State private var scrolling = TimelineScrollState()
     @State private var viewportSample = ChatViewportSample()
-    @State private var viewportUpdates = ChatLayoutUpdate<TimelineViewport>()
-    @State private var historyUpdates = ChatLayoutUpdate<TimelineHistoryLayout>()
+    @State private var viewportUpdates = ChatLayoutUpdate()
+    @State private var historyUpdates = ChatLayoutUpdate()
     @State private var latestPull = TimelineHistoryPull()
     @State private var olderPull = TimelineHistoryPull(edge: .older)
     @State private var olderPromptVisible = false
@@ -197,7 +197,7 @@ struct ChatTimelineView: View {
     /// iOS 17 bridge for `onScrollGeometryChange`.
     private func handleScrollGeometry(_ scrollView: UIScrollView) {
         let value = TimelineViewport(scrollView: scrollView)
-        viewportUpdates.submit(value) { value in
+        viewportUpdates.submit({ value }) { value in
             // Offset samples are needed for restoration, but do not change
             // the rendered page. Publish only dimensions used by following.
             viewportSample.value = value
@@ -262,7 +262,7 @@ struct ChatTimelineView: View {
         withTransaction(transaction) { position.isPositionedByUser = true }
     }
     private func historyDidLayOut(_ layout: TimelineHistoryLayout) {
-        historyUpdates.submit(layout) { layout in
+        historyUpdates.submit({ layout }) { layout in
             if historyLayout != layout { historyLayout = layout }
             guard !navigationIsSuspended, var restoration = historyPosition else { return }
             let offset = restoration.laidOut(layout, generation: scrolling.navigationGeneration)
@@ -287,22 +287,21 @@ struct ChatTimelineView: View {
 
 /// Keep the latest measurement without publishing View state inside a layout
 /// callback. One main-queue delivery handles a burst; removal invalidates it.
-@MainActor private final class ChatLayoutUpdate<Value> {
-    /// The pending delivery lives in a `DispatchWorkItem`. Storing the closure in
-    /// a system type keeps the synthesized destructor free of function-typed
-    /// fields, which the current Swift optimizer cannot compile here.
+@MainActor private final class ChatLayoutUpdate {
+    /// The pending delivery lives in a `DispatchWorkItem`, and the class itself is
+    /// not generic: the current Swift optimizer crashes on the destructor of a
+    /// generic main-actor class that stores closures.
     private var pendingWork: DispatchWorkItem?
     private var generation = 0
 
-    func submit(_ value: Value, apply: @escaping (Value) -> Void) {
+    func submit<Value>(_ makeValue: @escaping () -> Value, apply: @escaping (Value) -> Void) {
         let token = generation
         pendingWork?.cancel()
         let work = DispatchWorkItem { [weak self] in
-            guard let self else { return }
             MainActor.assumeIsolated {
-                guard self.generation == token else { return }
+                guard let self, self.generation == token else { return }
                 self.pendingWork = nil
-                apply(value)
+                apply(makeValue())
             }
         }
         pendingWork = work
