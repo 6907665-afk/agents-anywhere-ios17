@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: macos-26
-    timeout-minutes: 60
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
 
@@ -17,15 +17,13 @@ jobs:
           set -x
           sw_vers
           xcodebuild -version
-          xcodebuild -showsdks || true
           xcrun --sdk iphoneos --show-sdk-version || true
 
       - name: Build (unsigned)
         id: build
-        continue-on-error: true
         run: |
           set -o pipefail
-          cd ios 2>/dev/null || true
+          set +e
           xcodebuild \
             -project "Agents Anywhere/Agents Anywhere.xcodeproj" \
             -scheme "Agents Anywhere" \
@@ -38,20 +36,24 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             DEVELOPMENT_TEAM="" \
             IPHONEOS_DEPLOYMENT_TARGET=17.0 \
-            -quiet \
-            build 2>&1 | tee "$RUNNER_TEMP/build.log" || true
-          echo "=== ERROR SUMMARY ==="
-          grep -E "error:" "$RUNNER_TEMP/build.log" | sort -u | head -200 || true
-          echo "=== TAIL ==="
-          tail -60 "$RUNNER_TEMP/build.log" || true
+            SWIFT_OPTIMIZATION_LEVEL="-Onone" \
+            SWIFT_COMPILATION_MODE="wholemodule" \
+            DEBUG_INFORMATION_FORMAT="dwarf" \
+            build 2>&1 | tee "$RUNNER_TEMP/build.log"
+          STATUS=${PIPESTATUS[0]}
+          echo "=== xcodebuild exit: $STATUS ==="
+          grep -E "error:|BUILD SUCCEEDED|BUILD FAILED|Compiling with effective" "$RUNNER_TEMP/build.log" | sort -u | head -120 || true
+          exit $STATUS
 
       - name: Package IPA
-        if: steps.build.outcome == 'success'
         run: |
           set -e
-          cd ios 2>/dev/null || true
           APP=$(find "$RUNNER_TEMP/dd/Build/Products/Release-iphoneos" -maxdepth 1 -name "*.app" | head -1)
           echo "APP=$APP"
+          test -n "$APP"
+          test -f "$APP/Agents Anywhere"
+          /usr/libexec/PlistBuddy -c "Print :MinimumOSVersion" "$APP/Info.plist" || true
+          /usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$APP/Info.plist" || true
           mkdir -p "$RUNNER_TEMP/pkg/Payload"
           cp -R "$APP" "$RUNNER_TEMP/pkg/Payload/"
           cd "$RUNNER_TEMP/pkg"
