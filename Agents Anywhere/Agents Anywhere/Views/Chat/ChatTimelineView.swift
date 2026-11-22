@@ -287,6 +287,7 @@ struct ChatTimelineView: View {
 
 /// Keep the latest measurement without publishing View state inside a layout
 /// callback. One main-queue delivery handles a burst; removal invalidates it.
+@_optimize(none)
 @MainActor private final class ChatLayoutUpdate<Value> {
     private var pending: (() -> Void)?
     private var scheduled = false

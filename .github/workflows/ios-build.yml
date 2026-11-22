@@ -36,7 +36,7 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             DEVELOPMENT_TEAM="" \
             IPHONEOS_DEPLOYMENT_TARGET=17.0 \
-            SWIFT_OPTIMIZATION_LEVEL="-Onone" \
+            SWIFT_OPTIMIZATION_LEVEL="-O" \
             SWIFT_COMPILATION_MODE="wholemodule" \
             DEBUG_INFORMATION_FORMAT="dwarf" \
             ENABLE_DEBUG_DYLIB="NO" \

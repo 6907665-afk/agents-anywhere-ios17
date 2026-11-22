@@ -67,12 +67,19 @@ final class AAScrollProbeView: UIView {
 
     override func didMoveToWindow() {
         super.didMoveToWindow()
-        resolveScrollView()
+        scheduleResolve()
     }
 
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        resolveScrollView()
+        scheduleResolve()
+    }
+
+    /// Resolve after the current layout pass: attaching observers synchronously
+    /// from a layout callback would publish state while SwiftUI is laying out.
+    private func scheduleResolve() {
+        guard scrollView == nil else { return }
+        DispatchQueue.main.async { [weak self] in self?.resolveScrollView() }
     }
 
     func resolveScrollView() {
