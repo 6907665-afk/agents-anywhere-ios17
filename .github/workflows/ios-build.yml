@@ -17,9 +17,6 @@ jobs:
         run: |
           set -o pipefail
           set +e
-          if [ -d /Applications/Xcode_26.0.app ]; then
-            sudo xcode-select -s /Applications/Xcode_26.0.app
-          fi
           xcodebuild -version
           xcrun --sdk iphoneos --show-sdk-version
           SDK_NAME="iphoneos$(xcrun --sdk iphoneos --show-sdk-version)"
@@ -43,6 +40,7 @@ jobs:
             DEVELOPMENT_TEAM="" \
             IPHONEOS_DEPLOYMENT_TARGET=17.0 \
             SWIFT_OPTIMIZATION_LEVEL="-O" \
+            OTHER_SWIFT_FLAGS="-Xllvm -sil-disable-pass=EarlyPerfInliner" \
             DEBUG_INFORMATION_FORMAT="dwarf" \
             ENABLE_DEBUG_DYLIB="NO" \
             ENABLE_PREVIEWS="NO" \
