@@ -274,7 +274,7 @@ private struct SidebarDrawerInteractive<
             .frame(width: screenSize.width, height: screenSize.height)
             .contentShape(Rectangle())
 #if canImport(UIKit)
-            .gesture(
+            .background(
                 SidebarDrawerPanGesture(
                     progress: motion.restingProgress,
                     edgeActivationWidth: configuration.edgeActivationWidth,
@@ -612,7 +612,7 @@ private struct SidebarDrawerNativeSidebar<Header: View, Content: View>: View {
         content
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .aaScrollEdgeEffectStyle(edgeEffectStyle, for: .top)
-            .safeAreaBar(edge: .top, spacing: 0) {
+            .safeAreaInset(edge: .top, spacing: 0) {
                 SidebarDrawerHeaderBar(
                     safeAreaInsets: EdgeInsets(),
                     header: header
@@ -646,7 +646,7 @@ private struct SidebarDrawerSidebar<Header: View, Content: View>: View {
         content
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .aaScrollEdgeEffectStyle(edgeEffectStyle, for: .top)
-            .safeAreaBar(edge: .top, spacing: 0) {
+            .safeAreaInset(edge: .top, spacing: 0) {
                 SidebarDrawerHeaderBar(
                     safeAreaInsets: safeAreaInsets,
                     header: header
@@ -682,8 +682,11 @@ private struct SidebarDrawerMainCard<Content: View>: View {
 }
 
 private enum SidebarDrawerCardShape {
-    static func shape(isFullyClosed: Bool) -> ConcentricRectangle {
-        ConcentricRectangle(corners: isFullyClosed ? .fixed(0) : .concentric)
+    // iOS 17 has no `ConcentricRectangle`; a continuous rounded rectangle keeps
+    // the same card silhouette.
+    static func shape(isFullyClosed: Bool) -> AnyShape {
+        let radius: CGFloat = isFullyClosed ? 0 : 26
+        return AnyShape(RoundedRectangle(cornerRadius: radius, style: .continuous))
     }
 }
 

@@ -10,7 +10,7 @@ struct ChatTimelineView: View {
     @State private var historyLayout: TimelineHistoryLayout?
     @State private var historyPosition: TimelineHistoryPosition?
     @State private var hasRequestedOlder = false
-    @State private var position = ScrollPosition()
+    @State private var position = AAScrollPosition()
     @State private var scrolling = TimelineScrollState()
     @State private var viewportSample = ChatViewportSample()
     @State private var viewportUpdates = ChatLayoutUpdate<TimelineViewport>()
@@ -53,87 +53,21 @@ struct ChatTimelineView: View {
                     onTailVisibility: { region, visible in scrolling.tailVisibilityChanged(region, visible: visible) })
                     .equatable()
                     .background { ChatPageScrollEdge() }
+                    .background(
+                        AAScrollViewReader(
+                            onAttach: { scrollView, probe in position.attach(scrollView, probe: probe) },
+                            onGeometry: { scrollView in handleScrollGeometry(scrollView) },
+                            onPhase: { phase, scrollView in handleScrollPhase(phase, scrollView) }
+                        )
+                    )
             }
-            .scrollPosition($position)
             .scrollDismissesKeyboard(.interactively)
             .scrollIndicators(.hidden)
             .scrollBounceBehavior(.always, axes: .vertical)
             .aaScrollEdgeEffectStyle(.soft, for: .top)
-            .defaultScrollAnchor(.top, for: .initialOffset)
-            .defaultScrollAnchor(.top, for: .alignment)
-            .defaultScrollAnchor(.top, for: .sizeChanges)
+            .defaultScrollAnchor(.top)
             .allowsHitTesting(model.isOpeningReady)
             .accessibilityHidden(!model.isOpeningReady)
-            .onScrollPhaseChange { _, phase, context in
-                // A phase callback carries a newer authoritative sample.
-                viewportUpdates.cancel()
-                let mapped: TimelineScrollState.Phase
-                switch phase {
-                case .idle: mapped = .idle
-                case .tracking: mapped = .tracking
-                case .interacting: mapped = .interacting
-                case .decelerating: mapped = .decelerating
-                case .animating: mapped = .animating
-                @unknown default: mapped = .idle
-                }
-                let current = TimelineViewport(geometry: context.geometry)
-                let wasInteracting = scrolling.phase == .interacting
-                viewportSample.value = current
-                scrolling.geometryChanged(current)
-                nativePhase = mapped
-                // The drawer owns horizontal navigation. Do not interpret its
-                // interrupted scroll callbacks as a fresh vertical reading intent.
-                if navigationIsSuspended { return }
-                if scrolling.phaseChanged(mapped, viewport: current) {
-                    // Release ScrollPosition's persistent edge target as soon
-                    // as the user takes over, including interrupted animations.
-                    releaseScrollPosition()
-                    historyPosition?.cancelRestoration()
-                    olderPull.begin(at: current, promptVisible: olderPromptVisible,
-                        canLoad: model.session.hasOlderItems && !model.session.isLoadingHistory && olderLoadRequest == nil && latestLoadRequest == nil)
-                    latestPull.begin(at: current, promptVisible: latestPromptVisible,
-                        canLoad: model.session.hasNewerItems && !model.session.isLoadingHistory && latestLoadRequest == nil && olderLoadRequest == nil)
-                }
-                if mapped == .interacting { latestPull.update(current); olderPull.update(current) }
-                if mapped == .idle || mapped == .decelerating {
-                    let shouldLoadLatest = latestPull.end(), shouldLoadOlder = olderPull.end()
-                    if wasInteracting {
-                        if shouldLoadOlder { loadOlder() }
-                        else if shouldLoadLatest { loadLatest() }
-                    }
-                } else if mapped == .animating { latestPull.cancel(); olderPull.cancel() }
-            }
-            .onScrollGeometryChange(for: TimelineViewport.self) { geometry in
-                TimelineViewport(geometry: geometry)
-            } action: { previous, value in
-#if DEBUG
-                // A device recording cannot distinguish a changed native
-                // offset from an upstream reflow. Record only vertical changes
-                // during drawer navigation, without logging message contents.
-                if ChatLayoutDiagnostics.isEnabled, navigationIsSuspended,
-                   abs(value.contentHeight - previous.contentHeight) > 1
-                    || abs(value.visibleHeight - previous.visibleHeight) > 1
-                    || abs(value.offsetY - previous.offsetY) > 1 {
-                    Self.drawerLayoutLog.debug("Drawer geometry: content \(previous.contentHeight, privacy: .public) -> \(value.contentHeight, privacy: .public), viewport \(previous.visibleHeight, privacy: .public) -> \(value.visibleHeight, privacy: .public), offset \(previous.offsetY, privacy: .public) -> \(value.offsetY, privacy: .public)")
-                }
-#endif
-                viewportUpdates.submit(value) { value in
-                    // Offset samples are needed for restoration, but do not change
-                    // the rendered page. Publish only dimensions used by following.
-                    viewportSample.value = value
-                    let previous = scrolling.viewport
-                    if previous.contentHeight != value.contentHeight || previous.visibleHeight != value.visibleHeight
-                        || previous.topInset != value.topInset {
-                        scrolling.geometryChanged(value)
-                    }
-                    if !navigationIsSuspended && scrolling.phase == .interacting {
-                        var latest = latestPull, older = olderPull
-                        latest.update(value); older.update(value)
-                        if latest != latestPull { latestPull = latest }
-                        if older != olderPull { olderPull = older }
-                    }
-                }
-            }
             .onChange(of: navigationIsSuspended, initial: true) { _, suspended in
                 viewportUpdates.cancel()
                 scrolling.setNavigationSuspended(suspended)
@@ -260,6 +194,67 @@ struct ChatTimelineView: View {
             if scrolling.complete(command) { releaseScrollPosition() }
         }
     }
+    /// iOS 17 bridge for `onScrollGeometryChange`.
+    private func handleScrollGeometry(_ scrollView: UIScrollView) {
+        let value = TimelineViewport(scrollView: scrollView)
+        viewportUpdates.submit(value) { value in
+            // Offset samples are needed for restoration, but do not change
+            // the rendered page. Publish only dimensions used by following.
+            viewportSample.value = value
+            let previous = scrolling.viewport
+            if previous.contentHeight != value.contentHeight || previous.visibleHeight != value.visibleHeight
+                || previous.topInset != value.topInset {
+                scrolling.geometryChanged(value)
+            }
+            if !navigationIsSuspended && scrolling.phase == .interacting {
+                var latest = latestPull, older = olderPull
+                latest.update(value); older.update(value)
+                if latest != latestPull { latestPull = latest }
+                if older != olderPull { olderPull = older }
+            }
+        }
+    }
+
+    /// iOS 17 bridge for `onScrollPhaseChange`.
+    private func handleScrollPhase(_ phase: AAScrollPhase, _ scrollView: UIScrollView) {
+        // A phase callback carries a newer authoritative sample.
+        viewportUpdates.cancel()
+        let mapped: TimelineScrollState.Phase
+        switch phase {
+        case .idle: mapped = .idle
+        case .tracking: mapped = .tracking
+        case .interacting: mapped = .interacting
+        case .decelerating: mapped = .decelerating
+        case .animating: mapped = .animating
+        }
+        let current = TimelineViewport(scrollView: scrollView)
+        let wasInteracting = scrolling.phase == .interacting
+        viewportSample.value = current
+        scrolling.geometryChanged(current)
+        nativePhase = mapped
+        // The drawer owns horizontal navigation. Do not interpret its
+        // interrupted scroll callbacks as a fresh vertical reading intent.
+        if navigationIsSuspended { return }
+        if scrolling.phaseChanged(mapped, viewport: current) {
+            // Release the persistent edge target as soon as the user takes over,
+            // including interrupted animations.
+            releaseScrollPosition()
+            historyPosition?.cancelRestoration()
+            olderPull.begin(at: current, promptVisible: olderPromptVisible,
+                canLoad: model.session.hasOlderItems && !model.session.isLoadingHistory && olderLoadRequest == nil && latestLoadRequest == nil)
+            latestPull.begin(at: current, promptVisible: latestPromptVisible,
+                canLoad: model.session.hasNewerItems && !model.session.isLoadingHistory && latestLoadRequest == nil && olderLoadRequest == nil)
+        }
+        if mapped == .interacting { latestPull.update(current); olderPull.update(current) }
+        if mapped == .idle || mapped == .decelerating {
+            let shouldLoadLatest = latestPull.end(), shouldLoadOlder = olderPull.end()
+            if wasInteracting {
+                if shouldLoadOlder { loadOlder() }
+                else if shouldLoadLatest { loadLatest() }
+            }
+        } else if mapped == .animating { latestPull.cancel(); olderPull.cancel() }
+    }
+
     private func releaseScrollPosition() {
         guard position.edge != nil || position.point != nil else { return }
         var transaction = Transaction(animation: nil)
@@ -385,7 +380,7 @@ private struct ChatTimelineContent: View, Equatable {
                     }
                 }
                 .font(.footnote).frame(maxWidth: .infinity, minHeight: 44)
-                .onScrollVisibilityChange(threshold: 0.9) { onOlderPromptVisibility($0) }
+                .aaScrollVisibility { onOlderPromptVisibility($0) }
             }
             ForEach(groups) { group in
                 // Plans that preceded this group, e.g. the plan an implementation started from.
@@ -397,12 +392,15 @@ private struct ChatTimelineContent: View, Equatable {
                     .id(group.id)
                     .background {
                         if group.id == anchorGroup?.id, let firstRowID = model.timeline.rows.first?.id {
-                            Color.clear.onGeometryChange(for: TimelineHistoryLayout.self) { geometry in
+                            GeometryReader { geometry in
                                 let frame = geometry.frame(in: .named("chat.timeline.content"))
-                                return TimelineHistoryLayout(firstRowID: firstRowID,
+                                let layout = TimelineHistoryLayout(firstRowID: firstRowID,
                                     anchorRowID: historyAnchor?.anchorRowID ?? group.id, edge: anchorEdge,
                                     y: anchorEdge == .top ? frame.minY : frame.maxY)
-                            } action: { onHistoryLayout($0) }
+                                Color.clear
+                                    .onAppear { onHistoryLayout(layout) }
+                                    .onChange(of: layout) { _, next in onHistoryLayout(next) }
+                            }
                         }
                     }
             }
@@ -424,7 +422,7 @@ private struct ChatTimelineContent: View, Equatable {
                     }.font(.footnote).frame(maxWidth: .infinity, minHeight: 44)
                 }
                 .disabled(model.session.isLoadingHistory || isLoadingLatest || isLoadingOlder)
-                .onScrollVisibilityChange { onPromptVisibility($0) }
+                .aaScrollVisibility { onPromptVisibility($0) }
             }
             // Constant breathing room: status text and card counts cannot
             // change this spacer or create a spurious follow request.
@@ -440,12 +438,12 @@ private struct ChatTimelineContent: View, Equatable {
                 .traceChatLayout("tail-spacer")
                 .overlay(alignment: .bottom) {
                     Color.clear.frame(height: 96)
-                        .onScrollVisibilityChange(threshold: 0.01) { onTailVisibility(.near, $0) }
+                        .aaScrollVisibility { onTailVisibility(.near, $0) }
                         .allowsHitTesting(false).accessibilityHidden(true)
                 }
                 .overlay(alignment: .bottom) {
                     Color.clear.frame(height: 2)
-                        .onScrollVisibilityChange(threshold: 0.5) { onTailVisibility(.end, $0) }
+                        .aaScrollVisibility { onTailVisibility(.end, $0) }
                         .allowsHitTesting(false).accessibilityHidden(true)
                 }
                 .id("tail")
@@ -463,12 +461,6 @@ private struct ChatTimelineContent: View, Equatable {
 
 }
 
-private extension TimelineViewport {
-    init(geometry: ScrollGeometry) {
-        self.init(contentHeight: geometry.contentSize.height, containerHeight: geometry.containerSize.height,
-            topInset: geometry.contentInsets.top, bottomInset: geometry.contentInsets.bottom, offsetY: geometry.contentOffset.y)
-    }
-}
 
 /// Native offset storage deliberately does not invalidate the SwiftUI view tree.
 @MainActor private final class ChatViewportSample {

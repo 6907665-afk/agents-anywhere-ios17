@@ -12,7 +12,13 @@ struct ChatPageContentColumn: ViewModifier {
         content
             .padding(.horizontal, horizontalInset ?? systemMargin).padding(.top, 16)
             .frame(maxWidth: 760).frame(maxWidth: .infinity)
-            .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { containerWidth = $0 }
+            .background(
+                GeometryReader { geometry in
+                    Color.clear
+                        .onAppear { containerWidth = geometry.size.width }
+                        .onChange(of: geometry.size.width) { _, width in containerWidth = width }
+                }
+            )
     }
 
     /// UIKit widens layout margins from 16pt to 20pt on wide phones (Plus/Max,

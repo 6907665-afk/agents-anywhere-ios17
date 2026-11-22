@@ -125,7 +125,13 @@ private struct SessionPlanCard: View {
             } else if let plan = entry.plan {
                 ChatMarkdownView(text: planPreviewBody(markdown: plan.markdown, title: plan.title))
                     .fixedSize(horizontal: false, vertical: true)
-                    .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { contentHeight = $0 }
+                    .background(
+                        GeometryReader { geometry in
+                            Color.clear
+                                .onAppear { contentHeight = geometry.size.height }
+                                .onChange(of: geometry.size.height) { _, height in contentHeight = height }
+                        }
+                    )
                     .frame(maxHeight: clamped ? previewHeight : nil, alignment: .top)
                     .clipped()
                     .mask {
@@ -157,23 +163,31 @@ private struct PlanWritingTitle: View {
         TimelineView(.animation(minimumInterval: 1.0 / 15, paused: !writing || !visible || reduceMotion || scenePhase != .active)) { context in
             Text(writing ? String(localized: "正在撰写计划") : String(localized: "计划草稿已中断")).font(.subheadline.weight(.semibold))
                 .opacity(!writing || reduceMotion || !visible || scenePhase != .active ? 1 : 0.78 + 0.22 * sin(context.date.timeIntervalSinceReferenceDate * .pi / 1.2))
-        }.onScrollVisibilityChange { visible = $0 }
+        }.aaScrollVisibility { visible = $0 }
     }
 }
 
 private struct SessionPlanReader: View {
     let plan: V2PlanDocument
     @Binding var offset: CGFloat
-    @State private var position = ScrollPosition(y: 0)
+    @State private var position = AAScrollPosition()
     @State private var exporting = false
     @Environment(\.dismiss) private var dismiss
     var body: some View {
         NavigationStack {
-            ScrollView { ChatMarkdownView(text: plan.markdown).padding(20) }.scrollPosition($position)
+            ScrollView {
+                ChatMarkdownView(text: plan.markdown).padding(20)
+                    .background(
+                        AAScrollViewReader(
+                            onAttach: { scrollView, probe in position.attach(scrollView, probe: probe) },
+                            onGeometry: { scrollView in
+                                let value = max(0, scrollView.contentOffset.y + scrollView.adjustedContentInset.top)
+                                if position.isPositionedByUser { offset = value }
+                            }
+                        )
+                    )
+            }
                 .onAppear { position.scrollTo(y: offset) }
-                .onScrollGeometryChange(for: CGFloat.self) { max(0, $0.contentOffset.y + $0.contentInsets.top) } action: { _, value in
-                    if position.isPositionedByUser { offset = value }
-                }
                 .navigationTitle(plan.title).navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .confirmationAction) { Button(String(localized: "关闭")) { dismiss() } }

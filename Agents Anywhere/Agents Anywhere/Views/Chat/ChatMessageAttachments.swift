@@ -68,7 +68,7 @@ private struct ChatMessageImage: View {
         }
         .buttonStyle(.plain).accessibilityLabel(file.content.name ?? String(localized: "图片附件"))
         .onAppear { if image == nil, let data = file.previewData { image = UIImage(data: data) } }
-        .onScrollVisibilityChange(threshold: 0.01) { visible = $0 }
+        .aaScrollVisibility { visible = $0 }
         .task(id: Request(visible: visible, key: file.content.cacheKey, retry: retry)) {
             guard visible, image == nil else { return }
             do {

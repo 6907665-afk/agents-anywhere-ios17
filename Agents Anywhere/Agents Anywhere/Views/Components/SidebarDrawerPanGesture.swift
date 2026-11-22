@@ -2,54 +2,78 @@
 import SwiftUI
 import UIKit
 
-// Establishes horizontal intent before recognition so drawer pans cancel row taps without stealing vertical scrolling.
-struct SidebarDrawerPanGesture: UIGestureRecognizerRepresentable {
+// Establishes horizontal intent before recognition so drawer pans cancel row taps
+// without stealing vertical scrolling.
+//
+// iOS 17 has no `UIGestureRecognizerRepresentable`, so an invisible anchor view
+// installs the recognizer on its SwiftUI host instead.
+struct SidebarDrawerPanGesture: UIViewRepresentable {
     let progress: CGFloat
     let edgeActivationWidth: CGFloat
     let onBegan: () -> Void
     let onChanged: (CGFloat) -> Void
     let onEnded: (CGFloat, CGFloat, Bool) -> Void
 
-    func makeCoordinator(converter: CoordinateSpaceConverter) -> Coordinator {
+    func makeUIView(context: Context) -> UIView {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .clear
+        view.isUserInteractionEnabled = false
+        return view
+    }
+
+    func updateUIView(_ uiView: UIView, context: Context) {
+        context.coordinator.progress = progress
+        context.coordinator.edgeActivationWidth = max(edgeActivationWidth, 0)
+        context.coordinator.onBegan = onBegan
+        context.coordinator.onChanged = onChanged
+        context.coordinator.onEnded = onEnded
+        context.coordinator.install(from: uiView)
+    }
+
+    func makeCoordinator() -> Coordinator {
         Coordinator()
     }
 
-    func makeUIGestureRecognizer(context: Context) -> UIPanGestureRecognizer {
-        let recognizer = UIPanGestureRecognizer()
-        recognizer.cancelsTouchesInView = true
-        recognizer.maximumNumberOfTouches = 1
-        recognizer.delegate = context.coordinator
-        return recognizer
-    }
-
-    func updateUIGestureRecognizer(_ recognizer: UIPanGestureRecognizer, context: Context) {
-        context.coordinator.progress = progress
-        context.coordinator.edgeActivationWidth = max(edgeActivationWidth, 0)
-    }
-
-    func handleUIGestureRecognizerAction(_ recognizer: UIPanGestureRecognizer, context: Context) {
-        let translationX = context.converter.localTranslation?.x ?? 0
-        let velocityX = context.converter.localVelocity?.x ?? 0
-
-        switch recognizer.state {
-        case .began:
-            onBegan()
-        case .changed:
-            onChanged(translationX)
-        case .ended:
-            onEnded(translationX, velocityX, false)
-        case .cancelled:
-            onEnded(translationX, velocityX, true)
-        case .possible, .failed:
-            break
-        @unknown default:
-            break
-        }
-    }
-
+    @MainActor
     final class Coordinator: NSObject, UIGestureRecognizerDelegate {
+        private weak var host: UIView?
+        private var recognizer: UIPanGestureRecognizer?
+
         var progress: CGFloat = 0
         var edgeActivationWidth: CGFloat = 0
+        var onBegan: () -> Void = {}
+        var onChanged: (CGFloat) -> Void = { _ in }
+        var onEnded: (CGFloat, CGFloat, Bool) -> Void = { _, _, _ in }
+
+        func install(from view: UIView) {
+            guard recognizer == nil, let container = view.superview else { return }
+            let pan = UIPanGestureRecognizer(target: self, action: #selector(handle(_:)))
+            pan.cancelsTouchesInView = true
+            pan.maximumNumberOfTouches = 1
+            pan.delegate = self
+            container.addGestureRecognizer(pan)
+            recognizer = pan
+            host = container
+        }
+
+        @objc private func handle(_ pan: UIPanGestureRecognizer) {
+            guard let host else { return }
+            let translation = pan.translation(in: host).x
+            let velocity = pan.velocity(in: host).x
+
+            switch pan.state {
+            case .began:
+                onBegan()
+            case .changed:
+                onChanged(translation)
+            case .ended:
+                onEnded(translation, velocity, false)
+            case .cancelled, .failed:
+                onEnded(translation, velocity, true)
+            default:
+                break
+            }
+        }
 
         func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
             guard

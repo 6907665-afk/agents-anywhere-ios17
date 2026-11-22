@@ -29,7 +29,7 @@ extension View {
             self
                 .background(.ultraThinMaterial, in: shape)
                 .overlay {
-                    shape.strokeBorder(Color.white.opacity(0.12), lineWidth: 0.8)
+                    shape.stroke(Color.white.opacity(0.12), lineWidth: 0.8)
                 }
                 .clipShape(shape)
         }
@@ -83,6 +83,19 @@ extension View {
 enum AAScrollEdgeEffectStyle {
     case soft
     case hard
+}
+
+extension View {
+    /// `onScrollVisibilityChange(threshold:_:)` replacement (iOS 18).
+    ///
+    /// The affected views live in the timeline's lazy stack, so appearing and
+    /// disappearing tracks visibility closely enough for prompt and tail
+    /// detection.
+    func aaScrollVisibility(_ handler: @escaping (Bool) -> Void) -> some View {
+        self
+            .onAppear { handler(true) }
+            .onDisappear { handler(false) }
+    }
 }
 
 /// `GlassEffectContainer` replacement.

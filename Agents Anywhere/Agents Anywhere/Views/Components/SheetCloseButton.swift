@@ -4,7 +4,7 @@ struct SheetCloseButton: View {
     let action: () -> Void
 
     var body: some View {
-        Button(role: .close, action: action) {
+        Button(action: action) {
             Label(String(localized: "Close"), appSymbol: "xmark")
         }
         .labelStyle(.iconOnly)
@@ -50,7 +50,7 @@ struct SheetSaveToolbar: ToolbarContent {
 
     var body: some ToolbarContent {
         ToolbarItem(placement: .confirmationAction) {
-            Button(role: .confirm, action: onSave) {
+            Button(action: onSave) {
                 if isWorking, let workingTitle {
                     HStack(spacing: 6) {
                         ProgressView().controlSize(.small)

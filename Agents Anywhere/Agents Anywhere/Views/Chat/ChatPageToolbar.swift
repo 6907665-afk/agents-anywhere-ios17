@@ -37,7 +37,6 @@ struct ChatPageToolbar: ViewModifier {
     func body(content: Content) -> some View {
         content
             .navigationTitle(title)
-            .navigationSubtitle(alignsTitleLeading ? "" : subtitle ?? "")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(.visible, for: .navigationBar)
             .toolbar(removing: .sidebarToggle)
@@ -46,26 +45,18 @@ struct ChatPageToolbar: ViewModifier {
                     Button(action: onMenu) { SidebarMenuIcon() }
                         .accessibilityLabel(String(localized: "打开侧栏"))
                 }
-                if alignsTitleLeading {
-                    // Use the title region's available width. A leading bar
-                    // item is sized as a control and can collapse to its minimum
-                    // width even when there is space between the buttons.
-                    ToolbarItem(placement: .principal) {
-                        VStack(alignment: .leading, spacing: 1) {
-                            Text(title).font(.headline).lineLimit(1)
-                                .accessibilityAddTraits(.isHeader)
-                            if subtitle != nil || status != nil {
-                                ChatToolbarSubtitle(subtitle: subtitle, status: status)
-                            }
+                // iOS 17 has no `.subtitle` toolbar placement, so the title and
+                // subtitle always render in the principal item.
+                ToolbarItem(placement: .principal) {
+                    VStack(alignment: alignsTitleLeading ? .leading : .center, spacing: 1) {
+                        Text(title).font(.headline).lineLimit(1)
+                            .accessibilityAddTraits(.isHeader)
+                        if subtitle != nil || status != nil {
+                            ChatToolbarSubtitle(subtitle: subtitle, status: status)
                         }
-                        .multilineTextAlignment(.leading)
-                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .sharedBackgroundVisibility(.hidden)
-                } else if subtitle != nil || status != nil {
-                    ToolbarItem(placement: .subtitle) {
-                        ChatToolbarSubtitle(subtitle: subtitle, status: status)
-                    }
+                    .multilineTextAlignment(alignsTitleLeading ? .leading : .center)
+                    .frame(maxWidth: .infinity, alignment: alignsTitleLeading ? .leading : .center)
                 }
             }
     }

@@ -28,11 +28,14 @@ struct NewSessionWelcomeView: View {
 
     var body: some View {
         welcomeText
-        .onGeometryChange(for: CGRect.self, of: { $0.frame(in: .global) }) { frame in
-            // Observe real layout without locking its width or height. Once
-            // drawing begins, geometry updates must not cancel the reveal task.
-            if !hasStarted { initialFrame = frame }
-        }
+        .background(
+            GeometryReader { geometry in
+                let frame = geometry.frame(in: .global)
+                Color.clear
+                    .onAppear { if !hasStarted { initialFrame = frame } }
+                    .onChange(of: frame) { _, next in if !hasStarted { initialFrame = next } }
+            }
+        )
         .sidebarDrawerSettledTask(id: WelcomeRevealKey(reduceMotion: reduceMotion, frame: initialFrame)) { settled in
             await reveal(canReveal: settled)
         }

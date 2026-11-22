@@ -89,9 +89,13 @@ struct DeviceManagementView: View {
                 .padding(.top, 8).padding(.bottom, 24)
                 .modifier(ChatPageContentColumn())
                 .background { ChatPageScrollEdge() }
-            }
-            .onScrollGeometryChange(for: Bool.self) { $0.contentOffset.y + $0.contentInsets.top > 56 } action: { _, scrolled in
-                withAnimation(.easeOut(duration: 0.15)) { showsToolbarTitle = scrolled }
+                .background(
+                    AAScrollViewReader(onGeometry: { scrollView in
+                        let scrolled = scrollView.contentOffset.y + scrollView.adjustedContentInset.top > 56
+                        guard scrolled != showsToolbarTitle else { return }
+                        withAnimation(.easeOut(duration: 0.15)) { showsToolbarTitle = scrolled }
+                    })
+                )
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

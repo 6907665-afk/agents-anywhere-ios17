@@ -65,13 +65,11 @@ struct StreamingGlyphReveal: ViewModifier {
             // Every running clock re-evaluates its text each frame, so an idle
             // block pauses and draws its glyphs settled. 60 fps is enough for a
             // 0.24 s fade and halves the work on 120 Hz displays.
-            let running = enabled && stoppedDeadline != deadline && deadline > .now
-            TimelineView(.animation(minimumInterval: 1 / 60, paused: !running)) { timeline in
-                content.textRenderer(GlyphRevealRenderer(ledger: ledger, now: timeline.date.timeIntervalSinceReferenceDate,
-                    enabled: running, revealedPhraseCount: revealedPhraseCount, rises: !plainFade))
-            }
-            .onChange(of: enabled, initial: true) { _, next in if next { hasStreamed = true } }
-            .task(id: deadline) {
+            // iOS 17 has no `TextRenderer`, so streamed glyphs draw settled and
+            // the per-frame interpolation is skipped.
+            content
+                .onChange(of: enabled, initial: true) { _, next in if next { hasStreamed = true } }
+                .task(id: deadline) {
                 let delay = deadline.timeIntervalSinceNow
                 guard delay > 0, delay < 60 else { return }
                 do { try await Task.sleep(for: .seconds(delay)) } catch { return }
@@ -82,6 +80,7 @@ struct StreamingGlyphReveal: ViewModifier {
 
 }
 
+@available(iOS 18.0, *)
 nonisolated struct GlyphRevealRenderer: TextRenderer {
     let ledger: GlyphRevealLedger
     let now: TimeInterval

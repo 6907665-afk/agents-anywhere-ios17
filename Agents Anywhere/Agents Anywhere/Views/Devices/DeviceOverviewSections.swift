@@ -37,13 +37,9 @@ struct DeviceRows<Content: View>: View {
     @ViewBuilder var content: () -> Content
 
     var body: some View {
-        Group(subviews: content()) { rows in
-            VStack(alignment: .leading, spacing: 0) {
-                ForEach(rows) { row in
-                    if row.id != rows.first?.id { DeviceRowDivider() }
-                    row.frame(maxWidth: .infinity, alignment: .leading)
-                }
-            }
+        // iOS 17 has no `Group(subviews:)`, so rows stack without hairlines.
+        VStack(alignment: .leading, spacing: 0) {
+            content()
         }
     }
 }
