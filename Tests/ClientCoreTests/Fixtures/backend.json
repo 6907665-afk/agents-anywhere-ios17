@@ -1,0 +1,2112 @@
+{
+  "archiveAll": {
+    "affected": 1,
+    "serverTime": "2026-09-05T12:00:00Z",
+    "sessions": [
+      {
+        "archiveSource": null,
+        "archived": false,
+        "archivedAt": null,
+        "connectorId": "device",
+        "connectorStatus": "online",
+        "cwd": "/workspace",
+        "externalSessionId": null,
+        "id": "session",
+        "lastActivityAt": null,
+        "lastItemAt": null,
+        "lastItemOrderSeq": null,
+        "lastReadSeq": 0,
+        "lastSyncedAt": null,
+        "latestTurnEndSeq": 0,
+        "pinned": false,
+        "pinnedAt": null,
+        "projectId": "project",
+        "runtime": "claude",
+        "runtimeId": "rti_work",
+        "runtimeName": "Work",
+        "runtimeType": "claude",
+        "runtimeTypeDisplayName": null,
+        "sortAt": null,
+        "sourceAvailability": "available",
+        "sourceAvailabilityReason": null,
+        "sourceAvailabilityUpdatedAt": null,
+        "sourceObservationOrigin": null,
+        "sourceObservedAt": null,
+        "status": "idle",
+        "takeover": true,
+        "title": "Task",
+        "unread": false,
+        "updatedSeq": 10,
+        "userArchived": false
+      }
+    ]
+  },
+  "authConfig": {
+    "emailVerificationRequired": false,
+    "needsBootstrap": false,
+    "oauthEnabled": false,
+    "oauthProviderLabel": null,
+    "oauthRegistrationOpen": false,
+    "passwordResetEnabled": false,
+    "registrationOpen": true,
+    "serverTime": "2026-09-05T12:00:00Z",
+    "setupTokenExpiresAt": null
+  },
+  "bulk": {
+    "notFound": [],
+    "serverTime": "2026-09-05T12:00:00Z",
+    "sessions": [
+      {
+        "archiveSource": null,
+        "archived": false,
+        "archivedAt": null,
+        "connectorId": "device",
+        "connectorStatus": "online",
+        "cwd": "/workspace",
+        "externalSessionId": null,
+        "id": "session",
+        "lastActivityAt": null,
+        "lastItemAt": null,
+        "lastItemOrderSeq": null,
+        "lastReadSeq": 0,
+        "lastSyncedAt": null,
+        "latestTurnEndSeq": 0,
+        "pinned": false,
+        "pinnedAt": null,
+        "projectId": "project",
+        "runtime": "claude",
+        "runtimeId": "rti_work",
+        "runtimeName": "Work",
+        "runtimeType": "claude",
+        "runtimeTypeDisplayName": null,
+        "sortAt": null,
+        "sourceAvailability": "available",
+        "sourceAvailabilityReason": null,
+        "sourceAvailabilityUpdatedAt": null,
+        "sourceObservationOrigin": null,
+        "sourceObservedAt": null,
+        "status": "idle",
+        "takeover": true,
+        "title": "Task",
+        "unread": false,
+        "updatedSeq": 10,
+        "userArchived": false
+      }
+    ]
+  },
+  "capabilities": {
+    "capabilitySet": {
+      "capabilities": [
+        {
+          "allowed": true,
+          "available": true,
+          "capabilityId": "session.send_message",
+          "parameters": {},
+          "runtime": "claude",
+          "runtimeId": "rti_work",
+          "scope": "runtime",
+          "sessionId": null,
+          "supported": true,
+          "unavailableReason": null,
+          "version": "1"
+        }
+      ],
+      "revision": 10
+    },
+    "connectorId": "device",
+    "serverTime": "2026-09-05T12:00:00Z"
+  },
+  "commands": {
+    "commands": [
+      {
+        "acceptsArgs": true,
+        "aliases": [],
+        "argsSchema": {
+          "type": "array"
+        },
+        "category": null,
+        "description": null,
+        "disabledReason": null,
+        "enabled": true,
+        "id": "plan",
+        "metadata": {},
+        "scope": "session",
+        "title": "Plan"
+      }
+    ],
+    "serverTime": "2026-09-05T12:00:00Z"
+  },
+  "connector": {
+    "connector": {
+      "connectorKind": "cli",
+      "createdAt": "2026-09-05T12:00:00Z",
+      "deviceOs": "macos",
+      "id": "device",
+      "lastSeenAt": null,
+      "name": "Mac",
+      "status": "online",
+      "updatedAt": "2026-09-05T12:00:00Z",
+      "userId": "account"
+    },
+    "serverTime": "2026-09-05T12:00:00Z"
+  },
+  "connectors": {
+    "connectors": [
+      {
+        "connectorKind": "cli",
+        "createdAt": "2026-09-05T12:00:00Z",
+        "deviceOs": "macos",
+        "id": "device",
+        "lastSeenAt": null,
+        "name": "Mac",
+        "status": "online",
+        "updatedAt": "2026-09-05T12:00:00Z",
+        "userId": "account"
+      }
+    ],
+    "serverTime": "2026-09-05T12:00:00Z"
+  },
+  "createdSession": {
+    "attachments": [
+      {
+        "fileId": "file",
+        "mediaType": "text/plain",
+        "name": "test.txt",
+        "sha256": "hash",
+        "size": 5
+      }
+    ],
+    "connectorResult": {
+      "ok": true
+    },
+    "serverTime": "2026-09-05T12:00:00Z",
+    "session": {
+      "archiveSource": null,
+      "archived": false,
+      "archivedAt": null,
+      "connectorId": "device",
+      "connectorStatus": "online",
+      "cwd": "/workspace",
+      "externalSessionId": null,
+      "id": "session",
+      "lastActivityAt": null,
+      "lastItemAt": null,
+      "lastItemOrderSeq": null,
+      "lastReadSeq": 0,
+      "lastSyncedAt": null,
+      "latestTurnEndSeq": 0,
+      "pinned": false,
+      "pinnedAt": null,
+      "projectId": "project",
+      "runtime": "claude",
+      "runtimeId": "rti_work",
+      "runtimeName": "Work",
+      "runtimeType": "claude",
+      "runtimeTypeDisplayName": null,
+      "sortAt": null,
+      "sourceAvailability": "available",
+      "sourceAvailabilityReason": null,
+      "sourceAvailabilityUpdatedAt": null,
+      "sourceObservationOrigin": null,
+      "sourceObservedAt": null,
+      "status": "idle",
+      "takeover": true,
+      "title": "Task",
+      "unread": false,
+      "updatedSeq": 10,
+      "userArchived": false
+    }
+  },
+  "dashboard": {
+    "connectors": [
+      {
+        "connectorKind": "cli",
+        "createdAt": "2026-09-05T12:00:00Z",
+        "deviceOs": "macos",
+        "id": "device",
+        "lastSeenAt": null,
+        "name": "Mac",
+        "status": "online",
+        "updatedAt": "2026-09-05T12:00:00Z",
+        "userId": "account"
+      }
+    ],
+    "modelConfig": {
+      "assignments": [
+        {
+          "appliedAt": "2026-09-05T12:00:00Z",
+          "connectorId": "device",
+          "createdRuntime": false,
+          "error": null,
+          "modelConnectionStatus": {
+            "externalOwner": null,
+            "mode": null,
+            "protocol": null,
+            "reason": null,
+            "scope": null,
+            "state": "saved_pending"
+          },
+          "offerFormat": "openai_chat",
+          "profileId": "mpr_test",
+          "runtimeId": "rti_gateway",
+          "status": "applied"
+        }
+      ],
+      "channel": {
+        "channel": "mpr_test",
+        "revision": 3,
+        "runtimes": [
+          {
+            "actual": "native",
+            "connectorId": "device",
+            "desired": "mpr_test",
+            "message": null,
+            "override": null,
+            "reason": "model_connection_unsupported",
+            "runtimeId": "rti_work",
+            "state": "unsupported",
+            "step": null,
+            "updatedAt": "2026-09-05T12:00:00Z"
+          },
+          {
+            "actual": "mpr_test",
+            "connectorId": "device",
+            "desired": "mpr_test",
+            "message": null,
+            "override": null,
+            "reason": null,
+            "runtimeId": "rti_gateway",
+            "state": "applied",
+            "step": null,
+            "updatedAt": "2026-09-05T12:00:00Z"
+          },
+          {
+            "actual": "native",
+            "connectorId": "device",
+            "desired": "tokens",
+            "message": "runtime did not confirm in time",
+            "override": "tokens",
+            "reason": "verify_timeout",
+            "runtimeId": "rti_global",
+            "state": "restored",
+            "step": null,
+            "updatedAt": "2026-09-05T12:00:00Z"
+          }
+        ],
+        "switch": {
+          "finishedAt": "2026-09-05T12:00:00Z",
+          "revision": 3,
+          "startedAt": "2026-09-05T12:00:00Z",
+          "state": "attention"
+        }
+      },
+      "profiles": [
+        {
+          "etag": "1",
+          "id": "mpr_test",
+          "keyHint": "sk-gate…1234",
+          "name": "Gateway",
+          "offers": [
+            {
+              "baseUrl": "https://gateway.example/v1",
+              "format": "openai_chat",
+              "models": [
+                {
+                  "efforts": [
+                    "high"
+                  ],
+                  "id": "gpt-test",
+                  "input": [
+                    "text"
+                  ],
+                  "name": "GPT Test"
+                }
+              ]
+            }
+          ],
+          "originHost": "gateway.example",
+          "source": "manual",
+          "state": "active",
+          "strategyName": null,
+          "updatedAt": "2026-09-05T12:00:00Z"
+        },
+        {
+          "etag": "1",
+          "id": "mpr_tokens",
+          "keyHint": "sk-tok…abcd",
+          "name": "Tokens Anywhere",
+          "offers": [
+            {
+              "baseUrl": "https://gateway.example/v1",
+              "format": "openai_chat",
+              "models": [
+                {
+                  "efforts": [
+                    "high"
+                  ],
+                  "id": "gpt-test",
+                  "input": [
+                    "text"
+                  ],
+                  "name": "GPT Test"
+                }
+              ]
+            }
+          ],
+          "originHost": "gateway.example",
+          "source": "tokens",
+          "state": "active",
+          "strategyName": "default",
+          "updatedAt": "2026-09-05T12:00:00Z"
+        }
+      ],
+      "secretConfigured": true,
+      "tokens": {
+        "available": true,
+        "link": {
+          "account": {
+            "displayName": "Test",
+            "email": "test@example.com",
+            "id": "acct"
+          },
+          "issuer": "https://tokens.example",
+          "linkedAt": "2026-09-05T12:00:00Z",
+          "relinkSoon": false,
+          "status": "linked"
+        },
+        "secretConfigured": true,
+        "tokensUrl": "https://tokens.example"
+      }
+    },
+    "projects": [
+      {
+        "activeSessionCount": 1,
+        "connectorId": "device",
+        "createdAt": "2026-09-05T12:00:00Z",
+        "id": "project",
+        "lastActivityAt": null,
+        "manuallyCreated": true,
+        "name": "Workspace",
+        "pinned": false,
+        "pinnedAt": null,
+        "sidebarSessionCounts": {
+          "active": 1,
+          "archived": 0
+        },
+        "updatedAt": "2026-09-05T12:00:00Z",
+        "userId": "account",
+        "workspacePath": "/workspace"
+      }
+    ],
+    "runtimes": [
+      {
+        "active": true,
+        "available": true,
+        "capabilities": {},
+        "config": {},
+        "configured": true,
+        "connectorId": "device",
+        "createdAt": "2026-09-05T12:00:00Z",
+        "defaults": {},
+        "discovery": {},
+        "displayName": "Work",
+        "error": null,
+        "lastDiscoveredAt": "2026-09-05T12:00:00Z",
+        "managedBy": null,
+        "maturity": null,
+        "metadata": {},
+        "modelConnection": null,
+        "modelConnectionReport": null,
+        "modelConnectionStatus": null,
+        "name": "Work",
+        "phase": null,
+        "present": true,
+        "reason": null,
+        "runtimeId": "rti_work",
+        "runtimeType": "claude",
+        "schema": {
+          "properties": {},
+          "type": "object"
+        },
+        "secretFields": {},
+        "status": "running",
+        "typeDisplayName": "Claude",
+        "uiSchema": {},
+        "updatedAt": "2026-09-05T12:00:00Z"
+      },
+      {
+        "active": true,
+        "available": true,
+        "capabilities": {},
+        "config": {
+          "modelGateway": {
+            "baseUrl": "https://gateway.example/v1",
+            "protocol": "openai_chat"
+          }
+        },
+        "configured": true,
+        "connectorId": "device",
+        "createdAt": "2026-09-05T12:00:00Z",
+        "defaults": {},
+        "discovery": {},
+        "displayName": "Gateway",
+        "error": null,
+        "lastDiscoveredAt": "2026-09-05T12:00:00Z",
+        "managedBy": "model-config",
+        "maturity": "beta",
+        "metadata": {},
+        "modelConnection": {
+          "apply": "restart",
+          "catalog": {
+            "auto": false,
+            "manual": true
+          },
+          "configField": "modelGateway",
+          "maturity": "beta",
+          "modeField": null,
+          "modelsField": "customModels",
+          "modes": [
+            {
+              "id": "gateway",
+              "reason": null,
+              "supported": true
+            }
+          ],
+          "protocols": [
+            "openai_responses",
+            "openai_chat"
+          ],
+          "scope": "instance"
+        },
+        "modelConnectionReport": null,
+        "modelConnectionStatus": {
+          "externalOwner": null,
+          "mode": null,
+          "protocol": null,
+          "reason": null,
+          "scope": null,
+          "state": "saved_pending"
+        },
+        "name": "Gateway",
+        "phase": null,
+        "present": true,
+        "reason": null,
+        "runtimeId": "rti_gateway",
+        "runtimeType": "pi",
+        "schema": {
+          "properties": {
+            "modelGateway": {
+              "properties": {
+                "apiKey": {
+                  "type": "string"
+                },
+                "baseUrl": {
+                  "type": "string"
+                },
+                "protocol": {
+                  "enum": [
+                    "openai_responses",
+                    "openai_chat"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "baseUrl",
+                "apiKey"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "secretFields": {
+          "modelGateway.apiKey": {
+            "hint": "sk-gate…1234",
+            "set": true
+          }
+        },
+        "status": "running",
+        "typeDisplayName": "Pi",
+        "uiSchema": {
+          "modelGateway": {
+            "component": "modelGateway"
+          }
+        },
+        "updatedAt": "2026-09-05T12:00:00Z"
+      }
+    ],
+    "serverTime": "2026-09-05T12:00:00Z",
+    "sessionPages": {
+      "active": {
+        "hasMore": false,
+        "nextCursor": null
+      },
+      "archived": {
+        "hasMore": false,
+        "nextCursor": null
+      }
+    },
+    "sessions": [
+      {
+        "archiveSource": null,
+        "archived": false,
+        "archivedAt": null,
+        "connectorId": "device",
+        "connectorStatus": "online",
+        "cwd": "/workspace",
+        "externalSessionId": null,
+        "id": "session",
+        "lastActivityAt": null,
+        "lastItemAt": null,
+        "lastItemOrderSeq": null,
+        "lastReadSeq": 0,
+        "lastSyncedAt": null,
+        "latestTurnEndSeq": 0,
+        "pinned": false,
+        "pinnedAt": null,
+        "projectId": "project",
+        "runtime": "claude",
+        "runtimeId": "rti_work",
+        "runtimeName": "Work",
+        "runtimeType": "claude",
+        "runtimeTypeDisplayName": null,
+        "sortAt": null,
+        "sourceAvailability": "available",
+        "sourceAvailabilityReason": null,
+        "sourceAvailabilityUpdatedAt": null,
+        "sourceObservationOrigin": null,
+        "sourceObservedAt": null,
+        "status": "idle",
+        "takeover": true,
+        "title": "Task",
+        "unread": false,
+        "updatedSeq": 10,
+        "userArchived": false
+      }
+    ],
+    "type": "dashboard.snapshot"
+  },
+  "deviceSettings": {
+    "connectorId": "device",
+    "delivered": null,
+    "serverTime": "2026-09-05T12:00:00Z",
+    "settings": {
+      "confirmQuitOnShutdown": false
+    }
+  },
+  "deviceSettingsSaved": {
+    "connectorId": "device",
+    "delivered": false,
+    "serverTime": "2026-09-05T12:00:00Z",
+    "settings": {
+      "confirmQuitOnShutdown": true
+    }
+  },
+  "download": {
+    "contentBase64": "SGVsbG8=",
+    "createdAt": "2026-09-05T12:00:00Z",
+    "fileId": "file",
+    "name": "test.txt",
+    "path": "test.txt",
+    "serverTime": "2026-09-05T12:00:00Z",
+    "sessionId": "session",
+    "sha256": "hash",
+    "size": 5
+  },
+  "event": {
+    "cursor": "seq:11",
+    "emittedAt": "2026-09-05T12:00:00Z",
+    "eventId": "event",
+    "payload": {
+      "item": {
+        "completedAt": null,
+        "content": {
+          "text": "Hello"
+        },
+        "contentHash": "hash",
+        "createdAt": "2026-09-05T12:00:00Z",
+        "id": "item-2",
+        "orderSeq": 2,
+        "revision": 1,
+        "role": "assistant",
+        "sessionId": "session",
+        "source": {
+          "clientMessageId": null,
+          "derivedKey": null,
+          "event": null,
+          "itemId": null,
+          "itemType": null,
+          "runtime": "claude",
+          "sessionId": null
+        },
+        "status": "done",
+        "type": "message",
+        "updatedAt": "2026-09-05T12:00:00Z",
+        "updatedSeq": 11
+      }
+    },
+    "protocolVersion": "1.0",
+    "sequence": 11,
+    "sessionId": "session",
+    "type": "timeline.item_created"
+  },
+  "files": {
+    "error": null,
+    "ok": true,
+    "result": {
+      "entries": [
+        {
+          "name": "test.txt",
+          "path": "test.txt",
+          "size": 5,
+          "type": "file"
+        }
+      ],
+      "path": "/workspace",
+      "truncated": false
+    }
+  },
+  "modelCatalog": {
+    "catalog": {
+      "models": [
+        {
+          "default": false,
+          "description": null,
+          "displayName": "Model",
+          "group": null,
+          "id": "model",
+          "metadata": {},
+          "reasoningItems": [
+            {
+              "default": false,
+              "description": null,
+              "displayName": "High",
+              "fullModelId": null,
+              "id": "high",
+              "metadata": {},
+              "selectionId": "sel_effort"
+            }
+          ],
+          "selectionId": "sel_model"
+        }
+      ],
+      "revision": 1,
+      "runtime": "claude"
+    },
+    "serverTime": "2026-09-05T12:00:00Z"
+  },
+  "modelChannel": {
+    "channel": "mpr_test",
+    "revision": 3,
+    "runtimes": [
+      {
+        "actual": "native",
+        "connectorId": "device",
+        "desired": "mpr_test",
+        "message": null,
+        "override": null,
+        "reason": "model_connection_unsupported",
+        "runtimeId": "rti_work",
+        "state": "unsupported",
+        "step": null,
+        "updatedAt": "2026-09-05T12:00:00Z"
+      },
+      {
+        "actual": "mpr_test",
+        "connectorId": "device",
+        "desired": "mpr_test",
+        "message": null,
+        "override": null,
+        "reason": null,
+        "runtimeId": "rti_gateway",
+        "state": "applied",
+        "step": null,
+        "updatedAt": "2026-09-05T12:00:00Z"
+      },
+      {
+        "actual": "native",
+        "connectorId": "device",
+        "desired": "tokens",
+        "message": "runtime did not confirm in time",
+        "override": "tokens",
+        "reason": "verify_timeout",
+        "runtimeId": "rti_global",
+        "state": "restored",
+        "step": null,
+        "updatedAt": "2026-09-05T12:00:00Z"
+      }
+    ],
+    "switch": {
+      "finishedAt": "2026-09-05T12:00:00Z",
+      "revision": 3,
+      "startedAt": "2026-09-05T12:00:00Z",
+      "state": "attention"
+    }
+  },
+  "modelConfigError": {
+    "detail": {
+      "code": "profile_in_use",
+      "message": "devices still use this profile"
+    }
+  },
+  "modelGatewayError": {
+    "detail": {
+      "code": "gateway_unreachable",
+      "message": "the gateway did not answer"
+    }
+  },
+  "modelProfile": {
+    "etag": "1",
+    "id": "mpr_test",
+    "keyHint": "sk-gate…1234",
+    "name": "Gateway",
+    "offers": [
+      {
+        "baseUrl": "https://gateway.example/v1",
+        "format": "openai_chat",
+        "models": [
+          {
+            "efforts": [
+              "high"
+            ],
+            "id": "gpt-test",
+            "input": [
+              "text"
+            ],
+            "name": "GPT Test"
+          }
+        ]
+      }
+    ],
+    "originHost": "gateway.example",
+    "source": "manual",
+    "state": "active",
+    "strategyName": null,
+    "updatedAt": "2026-09-05T12:00:00Z"
+  },
+  "notices": {
+    "notices": [
+      {
+        "actions": [
+          {
+            "actionId": "approve",
+            "input": {
+              "required": false,
+              "schema": null,
+              "uiSchema": null
+            },
+            "label": "Approve",
+            "style": "secondary"
+          }
+        ],
+        "blocking": null,
+        "context": {},
+        "createdAt": null,
+        "expiresAt": null,
+        "interactionType": null,
+        "message": null,
+        "metadata": {},
+        "noticeId": "notice",
+        "resolvedAt": null,
+        "responseRequired": true,
+        "revision": 1,
+        "sessionId": "session",
+        "severity": "info",
+        "source": {
+          "approvalId": null,
+          "component": null,
+          "operationId": null,
+          "runtime": null,
+          "timelineItemId": null
+        },
+        "status": "open",
+        "title": "Approve",
+        "type": "interaction"
+      }
+    ],
+    "serverTime": "2026-09-05T12:00:00Z"
+  },
+  "permissionCatalog": {
+    "catalog": {
+      "permissions": [
+        {
+          "default": false,
+          "description": null,
+          "displayName": "Default",
+          "id": "default",
+          "metadata": {},
+          "selectionId": "sel_permission"
+        }
+      ],
+      "revision": 1,
+      "runtime": "claude"
+    },
+    "serverTime": "2026-09-05T12:00:00Z"
+  },
+  "preferences": {
+    "connectorId": "device",
+    "preferences": {
+      "cwd": "/workspace"
+    },
+    "serverTime": "2026-09-05T12:00:00Z"
+  },
+  "profile": {
+    "avatar": null,
+    "disabled": false,
+    "displayName": "Test",
+    "email": "test@example.com",
+    "emailVerified": false,
+    "role": "member",
+    "serverTime": "2026-09-05T12:00:00Z",
+    "userId": "account"
+  },
+  "project": {
+    "project": {
+      "activeSessionCount": 1,
+      "connectorId": "device",
+      "createdAt": "2026-09-05T12:00:00Z",
+      "id": "project",
+      "lastActivityAt": null,
+      "manuallyCreated": true,
+      "name": "Workspace",
+      "pinned": false,
+      "pinnedAt": null,
+      "sidebarSessionCounts": {
+        "active": 1,
+        "archived": 0
+      },
+      "updatedAt": "2026-09-05T12:00:00Z",
+      "userId": "account",
+      "workspacePath": "/workspace"
+    },
+    "serverTime": "2026-09-05T12:00:00Z"
+  },
+  "projectDelete": {
+    "detachedSessions": 0,
+    "projectId": "project",
+    "serverTime": "2026-09-05T12:00:00Z"
+  },
+  "projects": {
+    "projects": [
+      {
+        "activeSessionCount": 1,
+        "connectorId": "device",
+        "createdAt": "2026-09-05T12:00:00Z",
+        "id": "project",
+        "lastActivityAt": null,
+        "manuallyCreated": true,
+        "name": "Workspace",
+        "pinned": false,
+        "pinnedAt": null,
+        "sidebarSessionCounts": {
+          "active": 1,
+          "archived": 0
+        },
+        "updatedAt": "2026-09-05T12:00:00Z",
+        "userId": "account",
+        "workspacePath": "/workspace"
+      }
+    ],
+    "serverTime": "2026-09-05T12:00:00Z"
+  },
+  "recovery": {
+    "events": [
+      {
+        "cursor": "seq:11",
+        "emittedAt": "2026-09-05T12:00:00Z",
+        "eventId": "event",
+        "payload": {
+          "item": {
+            "completedAt": null,
+            "content": {
+              "text": "Hello"
+            },
+            "contentHash": "hash",
+            "createdAt": "2026-09-05T12:00:00Z",
+            "id": "item-2",
+            "orderSeq": 2,
+            "revision": 1,
+            "role": "assistant",
+            "sessionId": "session",
+            "source": {
+              "clientMessageId": null,
+              "derivedKey": null,
+              "event": null,
+              "itemId": null,
+              "itemType": null,
+              "runtime": "claude",
+              "sessionId": null
+            },
+            "status": "done",
+            "type": "message",
+            "updatedAt": "2026-09-05T12:00:00Z",
+            "updatedSeq": 11
+          }
+        },
+        "protocolVersion": "1.0",
+        "sequence": 11,
+        "sessionId": "session",
+        "type": "timeline.item_created"
+      }
+    ],
+    "nextCursor": "seq:11",
+    "serverTime": "2026-09-05T12:00:00Z",
+    "snapshotRequired": false
+  },
+  "requests": {
+    "bindSession": {
+      "connectorId": "device",
+      "externalSessionId": "external",
+      "projectId": "project",
+      "runtime": "claude",
+      "runtimeId": "rti_work",
+      "selections": {}
+    },
+    "command": {
+      "args": [
+        "task"
+      ],
+      "command": "plan",
+      "raw": "/plan task"
+    },
+    "confirmRuntimeChannel": {
+      "channel": "tokens",
+      "confirmNativeGlobal": true
+    },
+    "createModelProfile": {
+      "apiKey": "sk-test",
+      "name": "Gateway",
+      "offers": [
+        {
+          "baseUrl": "https://gateway.example/v1",
+          "format": "openai_chat",
+          "models": [
+            {
+              "efforts": [],
+              "id": "gpt-test",
+              "input": []
+            }
+          ]
+        }
+      ]
+    },
+    "createProject": {
+      "connectorId": "device",
+      "manuallyCreated": true,
+      "name": "Workspace",
+      "workspacePath": "/workspace"
+    },
+    "createRuntime": {
+      "active": true,
+      "config": {},
+      "name": "Work",
+      "runtimeType": "claude"
+    },
+    "createSession": {
+      "attachments": [],
+      "connectorId": "device",
+      "content": "Hello",
+      "projectId": "project",
+      "runtime": "claude",
+      "runtimeId": "rti_work",
+      "runtimeOptions": {},
+      "selections": {
+        "model": "sel_model"
+      }
+    },
+    "detectModelProfile": {
+      "apiKey": "sk-test",
+      "baseUrl": "https://gateway.example/v1",
+      "name": "Gateway"
+    },
+    "followChannel": {
+      "channel": null
+    },
+    "message": {
+      "attachments": [],
+      "clientMessageId": "client",
+      "content": "Hello"
+    },
+    "notice": {
+      "actionId": "approve",
+      "input": {
+        "confirmed": true
+      }
+    },
+    "patchDeviceSettings": {
+      "confirmQuitOnShutdown": true
+    },
+    "patchProject": {
+      "pinned": true
+    },
+    "readText": {
+      "maxBytes": 1048576,
+      "path": "test.txt"
+    },
+    "renameRuntime": {
+      "name": "Work"
+    },
+    "retryAll": {},
+    "retryRuntime": {
+      "connectorId": "device",
+      "runtimeId": "rti_gateway"
+    },
+    "selection": {
+      "selections": {
+        "effort": null
+      }
+    },
+    "setChannel": {
+      "channel": "tokens"
+    },
+    "steer": {
+      "attachments": [],
+      "clientMessageId": "client",
+      "content": "Hello"
+    },
+    "ticket": {
+      "clientId": "client",
+      "scope": {
+        "dashboard": false,
+        "sessionId": "session"
+      }
+    }
+  },
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/api/v2/admin/integrations/tokens"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v2/admin/integrations/tokens"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/auth/change-password"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/auth/config"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/auth/email-code"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/auth/login"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/auth/me"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v2/auth/me/avatar"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v2/auth/me/avatar"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v2/auth/me/email"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v2/auth/me/profile"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/auth/mobile-login/confirm"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/auth/mobile-login/exchange"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/auth/mobile-login/qr"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/auth/mobile-login/refresh"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/auth/mobile-login/request"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/auth/mobile-login/status"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/auth/oauth/callback"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/auth/oauth/finalize"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/auth/oauth/start"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/auth/password-salt"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/auth/register"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/connectors"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/connectors"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/connectors/fs/preview-session"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/connectors/fs/preview/read"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/connectors/fs/preview/readText"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v2/connectors/{connector_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/connectors/{connector_id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v2/connectors/{connector_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/connectors/{connector_id}/device-settings"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v2/connectors/{connector_id}/device-settings"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/connectors/{connector_id}/fs/list"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/connectors/{connector_id}/fs/preview-token"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/connectors/{connector_id}/fs/read"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/connectors/{connector_id}/fs/readText"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/connectors/{connector_id}/fs/transfers/{transfer_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/connectors/{connector_id}/fs/write"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/connectors/{connector_id}/preferences"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/connectors/{connector_id}/protocol/capabilities"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/connectors/{connector_id}/revoke"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/connectors/{connector_id}/runtime-types"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/connectors/{connector_id}/runtime-types/discover"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/connectors/{connector_id}/runtimes"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/connectors/{connector_id}/runtimes"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/connectors/{connector_id}/runtimes/discover"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/connectors/{connector_id}/runtimes/{runtime_id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v2/connectors/{connector_id}/runtimes/{runtime_id}"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v2/connectors/{connector_id}/runtimes/{runtime_id}/active"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/connectors/{connector_id}/runtimes/{runtime_id}/capabilities"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/connectors/{connector_id}/runtimes/{runtime_id}/catalogs/model"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/connectors/{connector_id}/runtimes/{runtime_id}/catalogs/permission"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/connectors/{connector_id}/runtimes/{runtime_id}/commands"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v2/connectors/{connector_id}/runtimes/{runtime_id}/config"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v2/connectors/{connector_id}/runtimes/{runtime_id}/config"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/connectors/{connector_id}/sessions/archive-all"
+    },
+    {
+      "method": "WEBSOCKET",
+      "path": "/api/v2/dashboard/ws"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/integrations/tokens"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/integrations/tokens/account"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/integrations/tokens/callback"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v2/integrations/tokens/link"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/integrations/tokens/link"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v2/integrations/tokens/models"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/integrations/tokens/start"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/integrations/tokens/sync"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/integrations/tokens/usage"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/model-config/channel"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v2/model-config/channel"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/model-config/channel/retry"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v2/model-config/channel/runtimes/{connector_id}/{runtime_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/model-profiles"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/model-profiles"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v2/model-profiles/{profile_id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v2/model-profiles/{profile_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/model-profiles/{profile_id}/rotate-key"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/projects"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v2/projects/{project_id}"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v2/projects/{project_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/projects/{project_id}/sessions"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/{project_id}/sessions/archive-all"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/sessions"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/sessions"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/sessions/archive"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/sessions/create-and-start"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/sessions/list"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/sessions/local/{session_id}/{file_id}"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/sessions/read"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/sessions/unarchive"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/sessions/{session_id}/attachments"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/sessions/{session_id}/attachments/{file_id}"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/sessions/{session_id}/attachments/{file_id}/open"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/sessions/{session_id}/attachments/{file_id}/thumb"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/sessions/{session_id}/events"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/sessions/{session_id}/meta"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v2/sessions/{session_id}/meta"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/sessions/{session_id}/runtime/capabilities"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/sessions/{session_id}/runtime/catalogs/model"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/sessions/{session_id}/runtime/catalogs/permission"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/sessions/{session_id}/runtime/commands"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/sessions/{session_id}/runtime/commands"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/sessions/{session_id}/runtime/interrupt"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/sessions/{session_id}/runtime/messages"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/sessions/{session_id}/runtime/notices"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/sessions/{session_id}/runtime/notices/{notice_id}/respond"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v2/sessions/{session_id}/runtime/selections"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/sessions/{session_id}/runtime/state"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/sessions/{session_id}/runtime/steer"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/sessions/{session_id}/snapshot"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/sessions/{session_id}/sync"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v2/sessions/{session_id}/takeover"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/sessions/{session_id}/takeover"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/sessions/{session_id}/timeline"
+    },
+    {
+      "method": "WEBSOCKET",
+      "path": "/api/v2/sessions/{session_id}/ws"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/ws-ticket"
+    }
+  ],
+  "rpc": {
+    "error": null,
+    "ok": true,
+    "result": {
+      "accepted": true
+    }
+  },
+  "rpcError": {
+    "error": {
+      "code": "notice_not_found",
+      "message": "Notice expired"
+    },
+    "ok": false,
+    "result": null
+  },
+  "runtime": {
+    "active": true,
+    "available": true,
+    "capabilities": {},
+    "config": {},
+    "configured": true,
+    "connectorId": "device",
+    "createdAt": "2026-09-05T12:00:00Z",
+    "defaults": {},
+    "discovery": {},
+    "displayName": "Work",
+    "error": null,
+    "lastDiscoveredAt": "2026-09-05T12:00:00Z",
+    "managedBy": null,
+    "maturity": null,
+    "metadata": {},
+    "modelConnection": null,
+    "modelConnectionReport": null,
+    "modelConnectionStatus": null,
+    "name": "Work",
+    "phase": null,
+    "present": true,
+    "reason": null,
+    "runtimeId": "rti_work",
+    "runtimeType": "claude",
+    "schema": {
+      "properties": {},
+      "type": "object"
+    },
+    "secretFields": {},
+    "status": "running",
+    "typeDisplayName": "Claude",
+    "uiSchema": {},
+    "updatedAt": "2026-09-05T12:00:00Z"
+  },
+  "runtimeTypes": {
+    "connectorId": "device",
+    "runtimeTypes": [
+      {
+        "available": true,
+        "capabilities": {},
+        "configSchema": null,
+        "connectorId": "device",
+        "createdAt": "2026-09-05T12:00:00Z",
+        "defaults": {},
+        "description": null,
+        "discovery": {},
+        "displayName": "Claude",
+        "implementationType": "claude_sdk",
+        "instancePolicy": "multiple",
+        "lastDiscoveredAt": "2026-09-05T12:00:00Z",
+        "maturity": null,
+        "maxInstances": 3,
+        "metadata": {},
+        "modelConnection": null,
+        "present": true,
+        "reason": null,
+        "recommendationRank": 1,
+        "recommended": true,
+        "runtimeType": "claude",
+        "schema": {
+          "properties": {},
+          "type": "object"
+        },
+        "uiSchema": {},
+        "updatedAt": "2026-09-05T12:00:00Z"
+      }
+    ],
+    "serverTime": "2026-09-05T12:00:00Z"
+  },
+  "runtimes": {
+    "connectorId": "device",
+    "runtimes": [
+      {
+        "active": true,
+        "available": true,
+        "capabilities": {},
+        "config": {},
+        "configured": true,
+        "connectorId": "device",
+        "createdAt": "2026-09-05T12:00:00Z",
+        "defaults": {},
+        "discovery": {},
+        "displayName": "Work",
+        "error": null,
+        "lastDiscoveredAt": "2026-09-05T12:00:00Z",
+        "managedBy": null,
+        "maturity": null,
+        "metadata": {},
+        "modelConnection": null,
+        "modelConnectionReport": null,
+        "modelConnectionStatus": null,
+        "name": "Work",
+        "phase": null,
+        "present": true,
+        "reason": null,
+        "runtimeId": "rti_work",
+        "runtimeType": "claude",
+        "schema": {
+          "properties": {},
+          "type": "object"
+        },
+        "secretFields": {},
+        "status": "running",
+        "typeDisplayName": "Claude",
+        "uiSchema": {},
+        "updatedAt": "2026-09-05T12:00:00Z"
+      }
+    ],
+    "serverTime": "2026-09-05T12:00:00Z"
+  },
+  "selectionResponse": {
+    "connectorResult": {
+      "ok": true
+    },
+    "ok": true,
+    "serverTime": "2026-09-05T12:00:00Z",
+    "state": {
+      "createdAt": "2026-09-05T12:00:00Z",
+      "error": null,
+      "externalSessionId": null,
+      "metadata": {},
+      "runtime": "claude",
+      "runtimeId": "rti_work",
+      "runtimeType": "claude",
+      "selections": {
+        "effort": null,
+        "model": "sel_model"
+      },
+      "sessionId": "session",
+      "status": "idle",
+      "statusReason": null,
+      "updatedAt": "2026-09-05T12:00:00Z",
+      "updatedSeq": 10
+    }
+  },
+  "session": {
+    "serverTime": "2026-09-05T12:00:00Z",
+    "session": {
+      "archiveSource": null,
+      "archived": false,
+      "archivedAt": null,
+      "connectorId": "device",
+      "connectorStatus": "online",
+      "cwd": "/workspace",
+      "externalSessionId": null,
+      "id": "session",
+      "lastActivityAt": null,
+      "lastItemAt": null,
+      "lastItemOrderSeq": null,
+      "lastReadSeq": 0,
+      "lastSyncedAt": null,
+      "latestTurnEndSeq": 0,
+      "pinned": false,
+      "pinnedAt": null,
+      "projectId": "project",
+      "runtime": "claude",
+      "runtimeId": "rti_work",
+      "runtimeName": "Work",
+      "runtimeType": "claude",
+      "runtimeTypeDisplayName": null,
+      "sortAt": null,
+      "sourceAvailability": "available",
+      "sourceAvailabilityReason": null,
+      "sourceAvailabilityUpdatedAt": null,
+      "sourceObservationOrigin": null,
+      "sourceObservedAt": null,
+      "status": "idle",
+      "takeover": true,
+      "title": "Task",
+      "unread": false,
+      "updatedSeq": 10,
+      "userArchived": false
+    }
+  },
+  "sessions": {
+    "hasMore": false,
+    "nextCursor": null,
+    "serverTime": "2026-09-05T12:00:00Z",
+    "sessions": [
+      {
+        "archiveSource": null,
+        "archived": false,
+        "archivedAt": null,
+        "connectorId": "device",
+        "connectorStatus": "online",
+        "cwd": "/workspace",
+        "externalSessionId": null,
+        "id": "session",
+        "lastActivityAt": null,
+        "lastItemAt": null,
+        "lastItemOrderSeq": null,
+        "lastReadSeq": 0,
+        "lastSyncedAt": null,
+        "latestTurnEndSeq": 0,
+        "pinned": false,
+        "pinnedAt": null,
+        "projectId": "project",
+        "runtime": "claude",
+        "runtimeId": "rti_work",
+        "runtimeName": "Work",
+        "runtimeType": "claude",
+        "runtimeTypeDisplayName": null,
+        "sortAt": null,
+        "sourceAvailability": "available",
+        "sourceAvailabilityReason": null,
+        "sourceAvailabilityUpdatedAt": null,
+        "sourceObservationOrigin": null,
+        "sourceObservedAt": null,
+        "status": "idle",
+        "takeover": true,
+        "title": "Task",
+        "unread": false,
+        "updatedSeq": 10,
+        "userArchived": false
+      }
+    ]
+  },
+  "snapshot": {
+    "approvals": [],
+    "catalogs": {
+      "model": {
+        "models": [
+          {
+            "default": false,
+            "description": null,
+            "displayName": "Model",
+            "group": null,
+            "id": "model",
+            "metadata": {},
+            "reasoningItems": [
+              {
+                "default": false,
+                "description": null,
+                "displayName": "High",
+                "fullModelId": null,
+                "id": "high",
+                "metadata": {},
+                "selectionId": "sel_effort"
+              }
+            ],
+            "selectionId": "sel_model"
+          }
+        ],
+        "revision": 1,
+        "runtime": "claude"
+      },
+      "permission": {
+        "permissions": [
+          {
+            "default": false,
+            "description": null,
+            "displayName": "Default",
+            "id": "default",
+            "metadata": {},
+            "selectionId": "sel_permission"
+          }
+        ],
+        "revision": 1,
+        "runtime": "claude"
+      }
+    },
+    "effectiveCapabilities": {
+      "capabilities": [
+        {
+          "allowed": true,
+          "available": true,
+          "capabilityId": "session.send_message",
+          "parameters": {},
+          "runtime": "claude",
+          "runtimeId": "rti_work",
+          "scope": "runtime",
+          "sessionId": null,
+          "supported": true,
+          "unavailableReason": null,
+          "version": "1"
+        }
+      ],
+      "revision": 10
+    },
+    "eventCursor": "seq:10",
+    "goalState": null,
+    "notices": [
+      {
+        "actions": [
+          {
+            "actionId": "approve",
+            "input": {
+              "required": false,
+              "schema": null,
+              "uiSchema": null
+            },
+            "label": "Approve",
+            "style": "secondary"
+          }
+        ],
+        "blocking": null,
+        "context": {},
+        "createdAt": null,
+        "expiresAt": null,
+        "interactionType": null,
+        "message": null,
+        "metadata": {},
+        "noticeId": "notice",
+        "resolvedAt": null,
+        "responseRequired": true,
+        "revision": 1,
+        "sessionId": "session",
+        "severity": "info",
+        "source": {
+          "approvalId": null,
+          "component": null,
+          "operationId": null,
+          "runtime": null,
+          "timelineItemId": null
+        },
+        "status": "open",
+        "title": "Approve",
+        "type": "interaction"
+      }
+    ],
+    "runtimeCapabilities": {
+      "capabilities": [
+        {
+          "allowed": true,
+          "available": true,
+          "capabilityId": "session.send_message",
+          "parameters": {},
+          "runtime": "claude",
+          "runtimeId": "rti_work",
+          "scope": "runtime",
+          "sessionId": null,
+          "supported": true,
+          "unavailableReason": null,
+          "version": "1"
+        }
+      ],
+      "revision": 10
+    },
+    "serverTime": "2026-09-05T12:00:00Z",
+    "session": {
+      "archiveSource": null,
+      "archived": false,
+      "archivedAt": null,
+      "connectorId": "device",
+      "connectorStatus": "online",
+      "cwd": "/workspace",
+      "externalSessionId": null,
+      "id": "session",
+      "lastActivityAt": null,
+      "lastItemAt": null,
+      "lastItemOrderSeq": null,
+      "lastReadSeq": 0,
+      "lastSyncedAt": null,
+      "latestTurnEndSeq": 0,
+      "pinned": false,
+      "pinnedAt": null,
+      "projectId": "project",
+      "runtime": "claude",
+      "runtimeId": "rti_work",
+      "runtimeName": "Work",
+      "runtimeType": "claude",
+      "runtimeTypeDisplayName": null,
+      "sortAt": null,
+      "sourceAvailability": "available",
+      "sourceAvailabilityReason": null,
+      "sourceAvailabilityUpdatedAt": null,
+      "sourceObservationOrigin": null,
+      "sourceObservedAt": null,
+      "status": "idle",
+      "takeover": true,
+      "title": "Task",
+      "unread": false,
+      "updatedSeq": 10,
+      "userArchived": false
+    },
+    "state": {
+      "createdAt": "2026-09-05T12:00:00Z",
+      "error": null,
+      "externalSessionId": null,
+      "metadata": {},
+      "runtime": "claude",
+      "runtimeId": "rti_work",
+      "runtimeType": "claude",
+      "selections": {
+        "effort": null,
+        "model": "sel_model"
+      },
+      "sessionId": "session",
+      "status": "idle",
+      "statusReason": null,
+      "updatedAt": "2026-09-05T12:00:00Z",
+      "updatedSeq": 10
+    },
+    "timeline": {
+      "hasMore": false,
+      "items": [
+        {
+          "completedAt": null,
+          "content": {
+            "text": "Hello"
+          },
+          "contentHash": "hash",
+          "createdAt": "2026-09-05T12:00:00Z",
+          "id": "item",
+          "orderSeq": 1,
+          "revision": 1,
+          "role": "assistant",
+          "sessionId": "session",
+          "source": {
+            "clientMessageId": null,
+            "derivedKey": null,
+            "event": null,
+            "itemId": null,
+            "itemType": null,
+            "runtime": "claude",
+            "sessionId": null
+          },
+          "status": "done",
+          "type": "message",
+          "updatedAt": "2026-09-05T12:00:00Z",
+          "updatedSeq": 10
+        }
+      ],
+      "nextSeq": 10
+    }
+  },
+  "state": {
+    "serverTime": "2026-09-05T12:00:00Z",
+    "state": {
+      "createdAt": "2026-09-05T12:00:00Z",
+      "error": null,
+      "externalSessionId": null,
+      "metadata": {},
+      "runtime": "claude",
+      "runtimeId": "rti_work",
+      "runtimeType": "claude",
+      "selections": {
+        "effort": null,
+        "model": "sel_model"
+      },
+      "sessionId": "session",
+      "status": "idle",
+      "statusReason": null,
+      "updatedAt": "2026-09-05T12:00:00Z",
+      "updatedSeq": 10
+    }
+  },
+  "takeover": {
+    "session": {
+      "archiveSource": null,
+      "archived": false,
+      "archivedAt": null,
+      "connectorId": "device",
+      "connectorStatus": "online",
+      "cwd": "/workspace",
+      "externalSessionId": null,
+      "id": "session",
+      "lastActivityAt": null,
+      "lastItemAt": null,
+      "lastItemOrderSeq": null,
+      "lastReadSeq": 0,
+      "lastSyncedAt": null,
+      "latestTurnEndSeq": 0,
+      "pinned": false,
+      "pinnedAt": null,
+      "projectId": "project",
+      "runtime": "claude",
+      "runtimeId": "rti_work",
+      "runtimeName": "Work",
+      "runtimeType": "claude",
+      "runtimeTypeDisplayName": null,
+      "sortAt": null,
+      "sourceAvailability": "available",
+      "sourceAvailabilityReason": null,
+      "sourceAvailabilityUpdatedAt": null,
+      "sourceObservationOrigin": null,
+      "sourceObservedAt": null,
+      "status": "idle",
+      "takeover": true,
+      "title": "Task",
+      "unread": false,
+      "updatedSeq": 10,
+      "userArchived": false
+    }
+  },
+  "text": {
+    "binary": false,
+    "content": "Hello",
+    "encoding": "utf8",
+    "name": "test.txt",
+    "path": "test.txt",
+    "serverTime": "2026-09-05T12:00:00Z",
+    "sha256": "hash",
+    "size": 5,
+    "truncated": false
+  },
+  "ticket": {
+    "expiresAt": "2026-09-05T12:00:00Z",
+    "serverTime": "2026-09-05T12:00:00Z",
+    "ticket": "test-ticket"
+  },
+  "timeline": {
+    "hasMore": false,
+    "items": [
+      {
+        "completedAt": null,
+        "content": {
+          "text": "Hello"
+        },
+        "contentHash": "hash",
+        "createdAt": "2026-09-05T12:00:00Z",
+        "id": "item",
+        "orderSeq": 1,
+        "revision": 1,
+        "role": "assistant",
+        "sessionId": "session",
+        "source": {
+          "clientMessageId": null,
+          "derivedKey": null,
+          "event": null,
+          "itemId": null,
+          "itemType": null,
+          "runtime": "claude",
+          "sessionId": null
+        },
+        "status": "done",
+        "type": "message",
+        "updatedAt": "2026-09-05T12:00:00Z",
+        "updatedSeq": 10
+      }
+    ],
+    "nextSeq": 10,
+    "serverTime": "2026-09-05T12:00:00Z",
+    "sessionId": "session"
+  },
+  "tokensLinkStart": {
+    "startUrl": "https://example.test/api/v2/integrations/tokens/start?ticket=test"
+  },
+  "tokensUnlink": {
+    "revoked": true
+  },
+  "upload": {
+    "attachments": [
+      {
+        "createdAt": "2026-09-05T12:00:00Z",
+        "downloadUrl": "/api/v2/sessions/session/attachments/file",
+        "fileId": "file",
+        "mediaType": "text/plain",
+        "name": "test.txt",
+        "openUrl": "/api/v2/sessions/session/attachments/file/open",
+        "sessionId": "session",
+        "sha256": "hash",
+        "size": 5,
+        "thumbnailUrl": ""
+      }
+    ],
+    "serverTime": "2026-09-05T12:00:00Z"
+  }
+}
