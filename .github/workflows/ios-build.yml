@@ -12,18 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Select Xcode
-        id: xcode
+      - name: Toolchain info
         run: |
           set -x
-          ls -d /Applications/Xcode*.app || true
-          for candidate in 26.0 26.1 26.2 26.3 26.4 26.5; do
-            if [ -d "/Applications/Xcode_${candidate}.app" ]; then
-              echo "SELECTED=$candidate" >> "$GITHUB_OUTPUT"
-              sudo xcode-select -s "/Applications/Xcode_${candidate}.app"
-              break
-            fi
-          done
           xcodebuild -version
           xcrun swift --version
           xcrun --sdk iphoneos --show-sdk-version || true
@@ -36,31 +27,31 @@ jobs:
           xcodebuild \
             -quiet \
             -project "Agents Anywhere/Agents Anywhere.xcodeproj" \
-            -target "Agents Anywhere" \
+            -scheme "Agents Anywhere" \
             -configuration Release \
             -sdk iphoneos \
-            ARCHS=arm64 \
-            SYMROOT="$RUNNER_TEMP/sym" \
-            OBJROOT="$RUNNER_TEMP/obj" \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath "$RUNNER_TEMP/dd" \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
             DEVELOPMENT_TEAM="" \
             IPHONEOS_DEPLOYMENT_TARGET=17.0 \
-            SWIFT_OPTIMIZATION_LEVEL="-O" \
+            SWIFT_OPTIMIZATION_LEVEL="-Osize" \
+            SWIFT_COMPILATION_MODE="singlefile" \
             DEBUG_INFORMATION_FORMAT="dwarf" \
             ENABLE_DEBUG_DYLIB="NO" \
             ENABLE_PREVIEWS="NO" \
             build 2>&1 | tee "$RUNNER_TEMP/build.log"
           STATUS=${PIPESTATUS[0]}
           echo "=== xcodebuild exit: $STATUS ==="
-          grep -aE "error:|BUILD SUCCEEDED|BUILD FAILED|Compiling with effective|Stack dump|SwiftCompile failed" "$RUNNER_TEMP/build.log" | cut -c1-400 | sort -u | head -40 || true
+          grep -aE "error:|BUILD SUCCEEDED|BUILD FAILED|Compiling with effective|Stack dump|SwiftCompile failed" "$RUNNER_TEMP/build.log" | cut -c1-300 | sort -u | head -30 || true
           exit $STATUS
 
       - name: Package IPA
         run: |
           set -e
-          APP=$(find "$RUNNER_TEMP/sym/Release-iphoneos" -maxdepth 1 -name "*.app" | head -1)
+          APP=$(find "$RUNNER_TEMP/dd/Build/Products/Release-iphoneos" -maxdepth 1 -name "*.app" | head -1)
           echo "APP=$APP"
           test -n "$APP"
           test -f "$APP/Agents Anywhere"
